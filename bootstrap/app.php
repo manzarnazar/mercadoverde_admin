@@ -22,6 +22,7 @@ use App\Http\Middleware\Subscription;
 use App\Http\Middleware\VendorMiddleware;
 use App\Http\Middleware\VendorTokenIsValid;
 use App\Http\Middleware\VerifyCsrfToken;
+use App\Http\Middleware\IncreaseUploadSize;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;

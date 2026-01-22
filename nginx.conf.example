@@ -1,0 +1,21 @@
+# Nginx Configuration for Large File Uploads
+# Add this to your Nginx server block configuration
+
+server {
+    # ... your existing configuration ...
+
+    # Increase client body size limit (for file uploads)
+    client_max_body_size 1024M;
+    
+    # Increase buffer sizes for large uploads
+    client_body_buffer_size 128k;
+    client_header_buffer_size 1k;
+    large_client_header_buffers 4 16k;
+    
+    # Increase timeouts for large file uploads
+    client_body_timeout 300s;
+    client_header_timeout 300s;
+    send_timeout 300s;
+    
+    # ... rest of your configuration ...
+}
