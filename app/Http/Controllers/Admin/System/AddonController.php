@@ -136,8 +136,12 @@ class AddonController extends Controller
 
     public function upload(Request $request)
     {
+        // Increase PHP upload limits for large file uploads
+        ini_set('post_max_size', '1024M');
+        ini_set('upload_max_filesize', '1024M');
+        
         $validator = Validator::make($request->all(), [
-            'file_upload' => 'required|mimes:zip'
+            'file_upload' => 'required|mimes:zip|max:102400' // 100MB max (in KB)
         ]);
 
         if ($validator->errors()->count() > 0) {
