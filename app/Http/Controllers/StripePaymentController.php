@@ -78,12 +78,13 @@ class StripePaymentController extends Controller
         }
 
         $currencies_not_supported_cents = ['BIF', 'CLP', 'DJF', 'GNF', 'JPY', 'KMF', 'KRW', 'MGA', 'PYG', 'RWF', 'UGX', 'VND', 'VUV', 'XAF', 'XOF', 'XPF'];
+        $stripe_currency = $currency_code ? strtolower($currency_code) : 'usd';
         $checkout_session = Session::create([
             // 'payment_method_types' => ['card'],
             'line_items' => [[
                 'price_data' => [
-                    'currency' => $currency_code ?? 'usd',
-                    'unit_amount' => in_array($currency_code, $currencies_not_supported_cents) ? (int)$payment_amount : ($payment_amount * 100),
+                    'currency' => $stripe_currency,
+                    'unit_amount' => in_array(strtoupper($currency_code ?? ''), $currencies_not_supported_cents) ? (int)$payment_amount : (int) round($payment_amount * 100),
                     'product_data' => [
                         'name' => $business_name,
                         'images' => [$business_logo],

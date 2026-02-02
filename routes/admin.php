@@ -546,7 +546,7 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.'], function () {
                 Route::get('/', 'AddonController@index')->name('index');
                 Route::post('publish', 'AddonController@publish')->name('publish');
                 Route::post('activation', 'AddonController@activation')->name('activation');
-                Route::post('upload', 'AddonController@upload')->middleware(\App\Http\Middleware\IncreaseUploadSize::class)->name('upload');
+                Route::post('upload', 'AddonController@upload')->name('upload');
                 Route::post('delete', 'AddonController@delete_theme')->name('delete');
             });
 
