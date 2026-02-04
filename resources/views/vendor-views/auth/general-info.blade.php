@@ -444,13 +444,6 @@
                                                                placeholder="{{ translate('Type Your Taxpayer Identification Number(TIN)') }}"
                                                                class=" form-control __form-control">
                                                     </div>
-                                                    <div class="form-group mb-0">
-                                                        <label class="input-label mb-2 d-block title-clr fw-normal"
-                                                               for="exampleFormControlInput1">{{ translate('Expire Date') }}
-                                                        </label>
-                                                        <input type="date" name="tin_expire_date"
-                                                               class="form-control __form-control">
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

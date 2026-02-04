@@ -327,11 +327,6 @@
                                             <span class="pl-1">{{ $store->tin }}</span>
                                         </div>
 
-                                        <div class=" d-flex justify-content-start gap-1">
-                                            <span class="text-custom-nowrap text-wrap"><strong
-                                                    class=" text-dark">{{ translate('Expire Date') }}: </strong></span>
-                                            <span class="pl-1">{{ $store->tin_expire_date }}</span>
-                                        </div>
                                     </div>
 
                                 </div>
