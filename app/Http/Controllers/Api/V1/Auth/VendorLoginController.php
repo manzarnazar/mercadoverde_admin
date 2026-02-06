@@ -208,8 +208,12 @@ class VendorLoginController extends Controller
         $store->zone_id = $request->zone_id;
         $store->tin = $request->tin;
         $store->tin_expire_date = (empty($request->tin_expire_date) || $request->tin_expire_date == 'null') ? null : $request->tin_expire_date;
-        $extension = $request->file('tin_certificate_image') ? $request->file('tin_certificate_image')->getClientOriginalExtension() : 'png';
-        $store->tin_certificate_image = Helpers::upload('store/', $extension, $request->file('tin_certificate_image'));
+        if ($request->hasFile('tin_certificate_image')) {
+            $extension = $request->file('tin_certificate_image')->getClientOriginalExtension();
+            $store->tin_certificate_image = Helpers::upload('store/', $extension, $request->file('tin_certificate_image'));
+        } else {
+            $store->tin_certificate_image = null;
+        }
         $store->delivery_time = $request->minimum_delivery_time .'-'. $request->maximum_delivery_time.' '.$request->delivery_time_type;
         $store->module_id = $request->module_id;
         $store->status = 0;

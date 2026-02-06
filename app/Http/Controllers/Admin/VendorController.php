@@ -139,8 +139,12 @@ class VendorController extends Controller
         $store->zone_id = $request->zone_id;
         $store->tin = $request->tin;
         $store->tin_expire_date = (empty($request->tin_expire_date) || $request->tin_expire_date == 'null') ? null : $request->tin_expire_date;
-        $extension = $request->has('tin_certificate_image') ? $request->file('tin_certificate_image')->getClientOriginalExtension() : 'png';
-        $store->tin_certificate_image = Helpers::upload('store/', $extension, $request->file('tin_certificate_image'));
+        if ($request->hasFile('tin_certificate_image')) {
+            $extension = $request->file('tin_certificate_image')->getClientOriginalExtension();
+            $store->tin_certificate_image = Helpers::upload('store/', $extension, $request->file('tin_certificate_image'));
+        } else {
+            $store->tin_certificate_image = null;
+        }
         $store->delivery_time = $request->minimum_delivery_time .'-'. $request->maximum_delivery_time.' '.$request->delivery_time_type;
         $store->module_id = Config::get('module.current_module_id');
         try {
@@ -249,8 +253,7 @@ class VendorController extends Controller
         $store->zone_id = $request->zone_id;
         $store->tin = $request->tin;
         $store->tin_expire_date = (empty($request->tin_expire_date) || $request->tin_expire_date == 'null') ? null : $request->tin_expire_date;
-        $extension = $request->has('tin_certificate_image') ? $request->file('tin_certificate_image')->getClientOriginalExtension() : 'png';
-        $store->tin_certificate_image = $request->has('tin_certificate_image') ? Helpers::update('store/', $store->tin_certificate_image, $extension, $request->file('tin_certificate_image')) : $store->tin_certificate_image;
+        $store->tin_certificate_image = $request->hasFile('tin_certificate_image') ? Helpers::update('store/', $store->tin_certificate_image, $request->file('tin_certificate_image')->getClientOriginalExtension(), $request->file('tin_certificate_image')) : $store->tin_certificate_image;
         $store->delivery_time = $request->minimum_delivery_time .'-'. $request->maximum_delivery_time.' '.$request->delivery_time_type;
         $store->save();
 
