@@ -7873,7 +7873,6 @@ Smartly or Earn. ',
   3765 => '3765.15',
   89 => '89.98',
   5880 => '5880.23',
-=======
   'total_tax_amount' => 'monto total del impuesto',
   'tax_type' => 'tipo de impuesto',
   'tax_amount' => 'monto del impuesto',
