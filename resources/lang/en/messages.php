@@ -7796,13 +7796,12 @@ Smartly or Earn. ',
   'Tax/Vat' => 'Tax/Vat',
   'Customer Not found!' => 'Customer Not found!',
   'Daily' => 'Daily',
-<<<<<<< Updated upstream
+
   'Business TIN' => 'CURP/RFC (Situación Fiscal)',
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   'Taxpayer Identification Number(TIN)' => 'CURP/RFC (Situación Fiscal)',
   'Type Your Taxpayer Identification Number(TIN)' => 'Type your CURP/RFC (Situación Fiscal)',
   'TIN Certificate' => 'CURP/RFC Certificate (Situación Fiscal)',
-=======
   'Business TIN' => 'CURP/RFC (SITUACION FISCAL)',
   'CURP/RFC (SITUACION FISCAL)' => 'CURP/RFC (SITUACION FISCAL)',
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -7819,7 +7818,7 @@ Smartly or Earn. ',
   'View current file' => 'View current file',
   'CURP_RFC_certificate_must_be_less_than_2MB' => 'CURP/RFC certificate must be less than 2MB',
   'COFEPRIS_document_must_be_less_than_2MB' => 'COFEPRIS document must be less than 2MB',
->>>>>>> Stashed changes
+
   'pdf, doc, jpg. File size : max 2 MB' => 'Pdf, doc, jpg. File size : max 2 MB',
   'product_not_found' => 'Product not found',
   'Zone_setup' => 'Zone setup',
