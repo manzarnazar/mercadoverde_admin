@@ -30,7 +30,7 @@ class DeliveryMan extends Authenticatable
         'auth_token',
     ];
 
-    protected $appends = ['image_full_url','identity_image_full_url'];
+    protected $appends = ['image_full_url','identity_image_full_url','curp_rfc_image_full_url','ine_image_full_url','cofepris_image_full_url'];
 
     public function getFullNameAttribute()
     {
@@ -188,6 +188,38 @@ class DeliveryMan extends Authenticatable
             }
         }
 
+        return $images;
+    }
+
+    public function getCurpRfcImageFullUrlAttribute()
+    {
+        return $this->getDocumentImageFullUrl($this->curp_rfc_image);
+    }
+
+    public function getIneImageFullUrlAttribute()
+    {
+        return $this->getDocumentImageFullUrl($this->ine_image);
+    }
+
+    public function getCofeprisImageFullUrlAttribute()
+    {
+        return $this->getDocumentImageFullUrl($this->cofepris_image);
+    }
+
+    private function getDocumentImageFullUrl($value)
+    {
+        $images = [];
+        $value = is_array($value)
+            ? $value
+            : ($value && is_string($value) && $this->isValidJson($value)
+                ? json_decode($value, true)
+                : []);
+        if ($value) {
+            foreach ($value as $item) {
+                $item = is_array($item) ? $item : (is_object($item) && get_class($item) == 'stdClass' ? json_decode(json_encode($item), true) : ['img' => $item, 'storage' => 'public']);
+                $images[] = Helpers::get_full_url('delivery-man', $item['img'], $item['storage']);
+            }
+        }
         return $images;
     }
 

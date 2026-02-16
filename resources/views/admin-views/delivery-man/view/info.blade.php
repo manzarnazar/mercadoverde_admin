@@ -496,18 +496,25 @@
                             </div>
                         </div>
                     @endif
-                    <div class="col-sm-6 col-lg-4">
-                        <h5 class="mb-3">{{ translate('messages.Identity_Information') }}</h5>
+                    @if(!empty($deliveryMan->curp_rfc_image) && is_string($deliveryMan->curp_rfc_image) && count(json_decode($deliveryMan->curp_rfc_image, true) ?? []) > 0)
+                        <div class="col-sm-6 col-lg-4">
+                            <h5 class="mb-3">{{ translate('messages.Identity_Information') }}</h5>
+                            <p class="text-muted small">{{ translate('CURP/RFC') }}, {{ translate('INE') }}, {{ translate('COFEPRIS') }}</p>
+                        </div>
+                    @else
+                        <div class="col-sm-6 col-lg-4">
+                            <h5 class="mb-3">{{ translate('messages.Identity_Information') }}</h5>
 
-                        <div class="key-val-list-item d-flex gap-3">
-                            <div>{{ translate('Identity_Type') }}</div>:
-                            <div>{{ translate($deliveryMan->identity_type) }}</div>
+                            <div class="key-val-list-item d-flex gap-3">
+                                <div>{{ translate('Identity_Type') }}</div>:
+                                <div>{{ translate($deliveryMan->identity_type ?? '') }}</div>
+                            </div>
+                            <div class="key-val-list-item d-flex gap-3">
+                                <div>{{ translate('messages.identification_number') }}</div>:
+                                <div>{{ $deliveryMan->identity_number ?? '' }}</div>
+                            </div>
                         </div>
-                        <div class="key-val-list-item d-flex gap-3">
-                            <div>{{ translate('messages.identification_number') }}</div>:
-                            <div>{{ $deliveryMan->identity_number }}</div>
-                        </div>
-                    </div>
+                    @endif
                     @if ($deliveryMan->application_status == 'pending')
                         <div class="col-sm-6 col-lg-4">
                             <h5 class="mb-3">{{ translate('messages.Login_Information') }}</h5>
@@ -523,43 +530,69 @@
                         </div>
                     @endif
                     <div class=" {{ $deliveryMan->application_status == 'pending' ? 'col-12' : 'col-6' }} ">
-                        @if ($deliveryMan->application_status == 'pending')
-                            <h5 class="mb-3 mt-5">{{ translate('messages.Identity_Image') }}</h5>
-                        @endif
-                        <div class="d-flex flex-wrap gap-3">
-                            @foreach ($deliveryMan->identity_image_full_url as $key => $img)
-                                <button class="btn" data-toggle="modal" data-target="#image-{{ $key }}">
-                                    <div class="gallary-card">
-                                        <img class="rounded mx-h150 mx-w-100"
-                                            data-onerror-image="{{ asset('/public/assets/admin/img/900x400/img1.jpg') }}"
-                                            src="{{ $img }}"
-                                            width="275" height="150" alt="">
-                                    </div>
-                                </button>
-                                <div class="modal fade" id="image-{{ $key }}" tabindex="-1" role="dialog"
-                                    aria-labelledby="myModlabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" id="myModlabel">
-                                                    {{ translate('messages.Identity_Image') }}</h4>
-                                                <button type="button" class="close" data-dismiss="modal"><span
-                                                        aria-hidden="true">&times;</span><span
-                                                        class="sr-only">{{ translate('messages.Close') }}</span></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <img data-onerror-image="{{ asset('/public/assets/admin/img/900x400/img1.jpg') }}"
+                        @if(!empty($deliveryMan->curp_rfc_image) && is_string($deliveryMan->curp_rfc_image) && count(json_decode($deliveryMan->curp_rfc_image, true) ?? []) > 0)
+                            @if ($deliveryMan->application_status == 'pending')
+                                <h5 class="mb-3 mt-5">{{ translate('CURP/RFC') }}</h5>
+                            @endif
+                            <div class="d-flex flex-wrap gap-3 mb-3">
+                                @foreach ($deliveryMan->curp_rfc_image_full_url ?? [] as $key => $img)
+                                    @include('admin-views.delivery-man.view.document-image-modal', ['img' => $img, 'key' => 'curp-' . $key, 'title' => translate('CURP/RFC')])
+                                @endforeach
+                            </div>
+                            @if ($deliveryMan->application_status == 'pending')
+                                <h5 class="mb-3 mt-4">{{ translate('INE') }}</h5>
+                            @endif
+                            <div class="d-flex flex-wrap gap-3 mb-3">
+                                @foreach ($deliveryMan->ine_image_full_url ?? [] as $key => $img)
+                                    @include('admin-views.delivery-man.view.document-image-modal', ['img' => $img, 'key' => 'ine-' . $key, 'title' => translate('INE')])
+                                @endforeach
+                            </div>
+                            @if ($deliveryMan->application_status == 'pending')
+                                <h5 class="mb-3 mt-4">{{ translate('COFEPRIS') }}</h5>
+                            @endif
+                            <div class="d-flex flex-wrap gap-3">
+                                @foreach ($deliveryMan->cofepris_image_full_url ?? [] as $key => $img)
+                                    @include('admin-views.delivery-man.view.document-image-modal', ['img' => $img, 'key' => 'cofepris-' . $key, 'title' => translate('COFEPRIS')])
+                                @endforeach
+                            </div>
+                        @else
+                            @if ($deliveryMan->application_status == 'pending')
+                                <h5 class="mb-3 mt-5">{{ translate('messages.Identity_Image') }}</h5>
+                            @endif
+                            <div class="d-flex flex-wrap gap-3">
+                                @foreach ($deliveryMan->identity_image_full_url ?? [] as $key => $img)
+                                    <button class="btn" data-toggle="modal" data-target="#image-{{ $key }}">
+                                        <div class="gallary-card">
+                                            <img class="rounded mx-h150 mx-w-100"
+                                                data-onerror-image="{{ asset('/public/assets/admin/img/900x400/img1.jpg') }}"
                                                 src="{{ $img }}"
-                                                    class="w-100 onerror-image">
-                                            </div>
-                                            <div class="modal-footer">
+                                                width="275" height="150" alt="">
+                                        </div>
+                                    </button>
+                                    <div class="modal fade" id="image-{{ $key }}" tabindex="-1" role="dialog"
+                                        aria-labelledby="myModlabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="myModlabel">
+                                                        {{ translate('messages.Identity_Image') }}</h4>
+                                                    <button type="button" class="close" data-dismiss="modal"><span
+                                                            aria-hidden="true">&times;</span><span
+                                                            class="sr-only">{{ translate('messages.Close') }}</span></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <img data-onerror-image="{{ asset('/public/assets/admin/img/900x400/img1.jpg') }}"
+                                                    src="{{ $img }}"
+                                                        class="w-100 onerror-image">
+                                                </div>
+                                                <div class="modal-footer">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
-
-                        </div>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                 </div>
 

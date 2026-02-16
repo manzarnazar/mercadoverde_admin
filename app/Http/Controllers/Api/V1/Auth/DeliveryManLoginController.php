@@ -78,14 +78,15 @@ class DeliveryManLoginController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'f_name' => 'required',
-            'identity_type' => 'required|in:passport,driving_license,nid',
-            'identity_number' => 'required',
             'email' => 'required|unique:delivery_men',
             'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|unique:delivery_men',
             'password' => ['required', Password::min(8)->mixedCase()->letters()->numbers()->symbols()->uncompromised()],
             'zone_id' => 'required',
             'vehicle_id' => 'required',
-            'earning' => 'required'
+            'earning' => 'required',
+            'curp_rfc_image' => 'required|file|max:2048|mimes:jpeg,jpg,png,gif,webp,pdf',
+            'ine_image' => 'required|file|max:2048|mimes:jpeg,jpg,png,gif,webp,pdf',
+            'cofepris_image' => 'required|file|max:2048|mimes:jpeg,jpg,png,gif,webp,pdf',
         ], [
             'f_name.required' => translate('messages.first_name_is_required'),
             'zone_id.required' => translate('messages.select_a_zone'),
@@ -98,7 +99,9 @@ class DeliveryManLoginController extends Controller
             'password.numbers' => translate('The password must contain numbers'),
             'password.symbols' => translate('The password must contain symbols'),
             'password.uncompromised' => translate('The password is compromised. Please choose a different one'),
-
+            'curp_rfc_image.required' => translate('messages.CURP_RFC_document_is_required'),
+            'ine_image.required' => translate('messages.INE_document_is_required'),
+            'cofepris_image.required' => translate('messages.COFEPRIS_document_is_required'),
         ]);
 
         if ($validator->fails()) {
@@ -111,27 +114,26 @@ class DeliveryManLoginController extends Controller
             $image_name = 'def.png';
         }
 
-        $id_img_names = [];
-        if (!empty($request->file('identity_image'))) {
-            foreach ($request->identity_image as $img) {
-                $identity_image = Helpers::upload('delivery-man/', 'png', $img);
-                array_push($id_img_names, ['img'=>$identity_image, 'storage'=> Helpers::getDisk()]);
-            }
-            $identity_image = json_encode($id_img_names);
-        } else {
-            $identity_image = json_encode([]);
-        }
+        $encodeDocument = function ($file) {
+            $extension = $file->getClientOriginalExtension();
+            $filename = Helpers::upload('delivery-man/', $extension, $file);
+            return json_encode([['img' => $filename, 'storage' => Helpers::getDisk()]]);
+        };
+
+        $curp_rfc_image = $encodeDocument($request->file('curp_rfc_image'));
+        $ine_image = $encodeDocument($request->file('ine_image'));
+        $cofepris_image = $encodeDocument($request->file('cofepris_image'));
 
         $dm = New DeliveryMan();
         $dm->f_name = $request->f_name;
         $dm->l_name = $request->l_name;
         $dm->email = $request->email;
         $dm->phone = $request->phone;
-        $dm->identity_number = $request->identity_number;
-        $dm->identity_type = $request->identity_type;
-        $dm->identity_image = $identity_image;
         $dm->vehicle_id = $request->vehicle_id;
         $dm->image = $image_name;
+        $dm->curp_rfc_image = $curp_rfc_image;
+        $dm->ine_image = $ine_image;
+        $dm->cofepris_image = $cofepris_image;
         $dm->status = 0;
         $dm->active = 0;
         $dm->application_status = 'pending';
