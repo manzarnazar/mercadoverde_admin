@@ -514,42 +514,35 @@
                                 <div>{{ $deliveryMan->identity_number ?? '' }}</div>
                             </div>
                         </div>
-<<<<<<< Updated upstream
-=======
-                        <div class="key-val-list-item d-flex gap-3">
-                            <div>{{ translate('messages.identification_number') }}</div>:
-                            <div>{{ $deliveryMan->identity_number }}</div>
-                        </div>
-                    </div>
                     @if(($deliveryMan->curp_rfc ?? null) || ($deliveryMan->driver_license_image ?? null) || ($deliveryMan->curp_rfc_certificate_image ?? null) || ($deliveryMan->cofepris_document_image ?? null))
-                    <div class="col-sm-6 col-lg-4">
-                        <h5 class="mb-3">{{ translate('Documents') }}</h5>
-                        @if($deliveryMan->curp_rfc ?? null)
-                        <div class="key-val-list-item d-flex gap-3">
-                            <div>{{ translate('CURP/RFC (SITUACION FISCAL)') }}</div>:
-                            <div>{{ $deliveryMan->curp_rfc }}</div>
+                        <div class="col-sm-6 col-lg-4">
+                            <h5 class="mb-3">{{ translate('Documents') }}</h5>
+                            @if($deliveryMan->curp_rfc ?? null)
+                            <div class="key-val-list-item d-flex gap-3">
+                                <div>{{ translate('CURP/RFC (SITUACION FISCAL)') }}</div>:
+                                <div>{{ $deliveryMan->curp_rfc }}</div>
+                            </div>
+                            @endif
+                            @if($deliveryMan->driver_license_image ?? null)
+                            <div class="key-val-list-item d-flex gap-3">
+                                <div>{{ translate("Driver's License") }}</div>:
+                                <div><a href="{{ $deliveryMan->driver_license_image_full_url }}" target="_blank">{{ translate('View document') }}</a></div>
+                            </div>
+                            @endif
+                            @if($deliveryMan->curp_rfc_certificate_image ?? null)
+                            <div class="key-val-list-item d-flex gap-3">
+                                <div>{{ translate('CURP/RFC Certificate (Situación Fiscal)') }}</div>:
+                                <div><a href="{{ $deliveryMan->curp_rfc_certificate_image_full_url }}" target="_blank">{{ translate('View document') }}</a></div>
+                            </div>
+                            @endif
+                            @if($deliveryMan->cofepris_document_image ?? null)
+                            <div class="key-val-list-item d-flex gap-3">
+                                <div>{{ translate('COFEPRIS Document') }}</div>:
+                                <div><a href="{{ $deliveryMan->cofepris_document_image_full_url }}" target="_blank">{{ translate('View document') }}</a></div>
+                            </div>
+                            @endif
                         </div>
-                        @endif
-                        @if($deliveryMan->driver_license_image ?? null)
-                        <div class="key-val-list-item d-flex gap-3">
-                            <div>{{ translate("Driver's License") }}</div>:
-                            <div><a href="{{ $deliveryMan->driver_license_image_full_url }}" target="_blank">{{ translate('View document') }}</a></div>
-                        </div>
-                        @endif
-                        @if($deliveryMan->curp_rfc_certificate_image ?? null)
-                        <div class="key-val-list-item d-flex gap-3">
-                            <div>{{ translate('CURP/RFC Certificate (Situación Fiscal)') }}</div>:
-                            <div><a href="{{ $deliveryMan->curp_rfc_certificate_image_full_url }}" target="_blank">{{ translate('View document') }}</a></div>
-                        </div>
-                        @endif
-                        @if($deliveryMan->cofepris_document_image ?? null)
-                        <div class="key-val-list-item d-flex gap-3">
-                            <div>{{ translate('COFEPRIS Document') }}</div>:
-                            <div><a href="{{ $deliveryMan->cofepris_document_image_full_url }}" target="_blank">{{ translate('View document') }}</a></div>
-                        </div>
-                        @endif
-                    </div>
->>>>>>> Stashed changes
+                    @endif
                     @endif
                     @if ($deliveryMan->application_status == 'pending')
                         <div class="col-sm-6 col-lg-4">

@@ -436,21 +436,12 @@
                                         <div class="col-md-8 col-xxl-8">
                                             <div class="card __card bg-F8F9FC rounded p-20 h-100">
                                                 <div class="card-body">
-<<<<<<< Updated upstream
                                                     <div class="form-group mb-3">
-                                                        <label class="input-label mb-2 d-block title-clr fw-normal"
-                                                               for="exampleFormControlInput1">{{ translate('Taxpayer Identification Number(TIN)') }}
-                                                        </label>
-                                                        <input type="text" name="tin"
-                                                               placeholder="{{ translate('Type Your Taxpayer Identification Number(TIN)') }}"
-=======
-                                                    <div class="form-group mb-0">
                                                         <label class="input-label mb-2 d-block title-clr fw-normal"
                                                                for="exampleFormControlInput1">{{ translate('CURP/RFC (SITUACION FISCAL)') }}
                                                         </label>
                                                         <input type="text" name="tin"
                                                                placeholder="{{ translate('Enter CURP or RFC') }}"
->>>>>>> Stashed changes
                                                                class=" form-control __form-control">
                                                     </div>
                                                 </div>

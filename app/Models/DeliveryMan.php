@@ -30,11 +30,7 @@ class DeliveryMan extends Authenticatable
         'auth_token',
     ];
 
-<<<<<<< Updated upstream
-    protected $appends = ['image_full_url','identity_image_full_url','curp_rfc_image_full_url','ine_image_full_url','cofepris_image_full_url'];
-=======
-    protected $appends = ['image_full_url','identity_image_full_url','driver_license_image_full_url','curp_rfc_certificate_image_full_url','cofepris_document_image_full_url'];
->>>>>>> Stashed changes
+    protected $appends = ['image_full_url','identity_image_full_url','curp_rfc_image_full_url','ine_image_full_url','cofepris_image_full_url','driver_license_image_full_url','curp_rfc_certificate_image_full_url','cofepris_document_image_full_url'];
 
     public function getFullNameAttribute()
     {

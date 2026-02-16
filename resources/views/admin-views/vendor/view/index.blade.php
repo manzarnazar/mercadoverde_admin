@@ -326,16 +326,12 @@
                                                 </strong></span>
                                             <span class="pl-1">{{ $store->tin }}</span>
                                         </div>
-<<<<<<< Updated upstream
-
-=======
                                         @if($store->cofepris_document_image ?? null)
                                         <div class=" d-flex justify-content-start gap-1 mt-2">
                                             <span class="text-custom-nowrap text-wrap"><strong class=" text-dark">{{ translate('COFEPRIS Document') }}: </strong></span>
                                             <a href="{{ $store->cofepris_document_image_full_url }}" target="_blank" class="pl-1">{{ translate('View document') }}</a>
                                         </div>
                                         @endif
->>>>>>> Stashed changes
                                     </div>
 
                                 </div>
