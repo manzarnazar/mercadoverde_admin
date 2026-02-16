@@ -30,7 +30,7 @@ class DeliveryMan extends Authenticatable
         'auth_token',
     ];
 
-    protected $appends = ['image_full_url','identity_image_full_url','curp_rfc_image_full_url','ine_image_full_url','cofepris_image_full_url','driver_license_image_full_url','curp_rfc_certificate_image_full_url','cofepris_document_image_full_url'];
+    protected $appends = ['image_full_url','identity_image_full_url','curp_rfc_image_full_url','ine_image_full_url','ine_back_image_full_url','cofepris_image_full_url','driver_license_image_full_url','curp_rfc_certificate_image_full_url','cofepris_document_image_full_url'];
 
     public function getFullNameAttribute()
     {
@@ -235,6 +235,11 @@ class DeliveryMan extends Authenticatable
     public function getIneImageFullUrlAttribute()
     {
         return $this->getDocumentImageFullUrl($this->ine_image);
+    }
+
+    public function getIneBackImageFullUrlAttribute()
+    {
+        return $this->getDocumentImageFullUrl($this->ine_back_image);
     }
 
     public function getCofeprisImageFullUrlAttribute()

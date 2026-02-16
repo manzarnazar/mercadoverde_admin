@@ -42,7 +42,6 @@ class DeliveryManAddRequest extends FormRequest
         return [
             'f_name' => 'required|max:100',
             'l_name' => 'nullable|max:100',
-            'identity_number' => 'required|max:30',
             'email' => 'required|unique:delivery_men',
             'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:20|unique:delivery_men',
             'zone_id' => 'required',
@@ -59,6 +58,8 @@ class DeliveryManAddRequest extends FormRequest
             'driver_license_image' => 'nullable|file|max:2048|mimes:pdf,doc,docx,jpg,jpeg,png',
             'curp_rfc_certificate_image' => 'nullable|file|max:2048|mimes:pdf,doc,docx,jpg,jpeg,png',
             'cofepris_document_image' => 'nullable|file|max:2048|mimes:pdf,doc,docx,jpg,jpeg,png',
+            'ine_image' => 'nullable|file|max:2048|mimes:jpeg,jpg,png,gif,webp',
+            'ine_back_image' => 'nullable|file|max:2048|mimes:jpeg,jpg,png,gif,webp',
         ];
     }
 

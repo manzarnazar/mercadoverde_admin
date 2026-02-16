@@ -50,28 +50,6 @@
                                             required>
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-md-4">
-                                    <label class="input-label" for="identity_type">{{translate('messages.identity_type')}}</label>
-                                    <select name="identity_type" id="identity_type" class="form-control">
-                                        <option
-                                            value="passport" {{$delivery_man['identity_type']=='passport'?'selected':''}}>
-                                            {{translate('messages.passport')}}
-                                        </option>
-                                        <option
-                                            value="driving_license" {{$delivery_man['identity_type']=='driving_license'?'selected':''}}>
-                                            {{translate('messages.driving_license')}}
-                                        </option>
-                                        <option value="nid" {{$delivery_man['identity_type']=='nid'?'selected':''}}>{{translate('messages.nid')}}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6 col-md-4">
-                                    <label class="input-label" for="identity_number">{{translate('messages.identity_number')}}</label>
-                                    <input type="text" name="identity_number" id="identity_number" value="{{$delivery_man['identity_number']}}"
-                                        class="form-control"
-                                        placeholder="{{ translate('messages.Ex:') }} DH-23434-LS"
-                                        required>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -79,20 +57,28 @@
                 <div class="col-md-6">
                     <div class="card h-100">
                         <div class="card-header">
-                            <h5 class="form-label m-0">{{translate('messages.identity_image')}}
-                            <small class="text-danger">* {{translate('messages.( Ratio 190x120 )')}}</small></h5>
+                            <h5 class="form-label m-0">{{ translate('messages.INE_front_Mexican_national_ID') }}</h5>
                         </div>
-                        <div class="card-body d-flex flex-column">
-                            <div class="form-group">
-                                <div class="btn--container" id="coba">
-                                    @foreach($delivery_man['identity_image_full_url'] as $img)
-                                        <div>
-                                            <img class="img--120"
-                                            src="{{ $img }}"  alt="image">
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
+                        <div class="card-body">
+                            @if(!empty($delivery_man->ine_image) && count($delivery_man->ine_image_full_url ?? []) > 0)
+                                <a href="{{ ($delivery_man->ine_image_full_url)[0] ?? '#' }}" target="_blank" class="d-inline-block mb-2">{{ translate('View current file') }}</a>
+                            @endif
+                            <input type="file" name="ine_image" class="form-control" accept=".jpg,.jpeg,.png,.gif,.webp">
+                            <small class="text-muted">{{ translate('pdf, doc, jpg. File size : max 2 MB') }}</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h5 class="form-label m-0">{{ translate('messages.INE_back_Mexican_national_ID') }}</h5>
+                        </div>
+                        <div class="card-body">
+                            @if(!empty($delivery_man->ine_back_image) && count($delivery_man->ine_back_image_full_url ?? []) > 0)
+                                <a href="{{ ($delivery_man->ine_back_image_full_url)[0] ?? '#' }}" target="_blank" class="d-inline-block mb-2">{{ translate('View current file') }}</a>
+                            @endif
+                            <input type="file" name="ine_back_image" class="form-control" accept=".jpg,.jpeg,.png,.gif,.webp">
+                            <small class="text-muted">{{ translate('pdf, doc, jpg. File size : max 2 MB') }}</small>
                         </div>
                     </div>
                 </div>
@@ -215,41 +201,6 @@
 
         $("#customFileEg1").change(function () {
             readURL(this);
-        });
-        $(function () {
-            $("#coba").spartanMultiImagePicker({
-                fieldName: 'identity_image[]',
-                maxCount: 5,
-                rowHeight: '75px',
-                groupClassName: '',
-                maxFileSize: '',
-                placeholderImage: {
-                    image: '{{asset('public/assets/admin/img/400x400/img2.jpg')}}',
-                    width: '100%'
-                },
-                dropFileLabel: "{{translate('Drop Here')}}",
-                onAddRow: function (index, file) {
-
-                },
-                onRenderedPreview: function (index) {
-
-                },
-                onRemoveRow: function (index) {
-
-                },
-                onExtensionErr: function () {
-                    toastr.error('{{translate('Please only input png or jpg type file')}}', {
-                        CloseButton: true,
-                        ProgressBar: true
-                    });
-                },
-                onSizeErr: function () {
-                    toastr.error('{{translate('File size too big')}}', {
-                        CloseButton: true,
-                        ProgressBar: true
-                    });
-                }
-            });
         });
 
         $('#deliaveryman_form').on('submit', function () {

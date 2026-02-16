@@ -85,7 +85,8 @@ class DeliveryManLoginController extends Controller
             'vehicle_id' => 'required',
             'earning' => 'required',
             'curp_rfc_image' => 'required|file|max:2048|mimes:jpeg,jpg,png,gif,webp,pdf',
-            'ine_image' => 'required|file|max:2048|mimes:jpeg,jpg,png,gif,webp,pdf',
+            'ine_image' => 'required|file|max:2048|mimes:jpeg,jpg,png,gif,webp',
+            'ine_back_image' => 'required|file|max:2048|mimes:jpeg,jpg,png,gif,webp',
             'cofepris_image' => 'required|file|max:2048|mimes:jpeg,jpg,png,gif,webp,pdf',
         ], [
             'f_name.required' => translate('messages.first_name_is_required'),
@@ -100,7 +101,8 @@ class DeliveryManLoginController extends Controller
             'password.symbols' => translate('The password must contain symbols'),
             'password.uncompromised' => translate('The password is compromised. Please choose a different one'),
             'curp_rfc_image.required' => translate('messages.CURP_RFC_document_is_required'),
-            'ine_image.required' => translate('messages.INE_document_is_required'),
+            'ine_image.required' => translate('messages.INE_image_is_required'),
+            'ine_back_image.required' => translate('messages.INE_back_image_is_required'),
             'cofepris_image.required' => translate('messages.COFEPRIS_document_is_required'),
         ]);
 
@@ -122,6 +124,7 @@ class DeliveryManLoginController extends Controller
 
         $curp_rfc_image = $encodeDocument($request->file('curp_rfc_image'));
         $ine_image = $encodeDocument($request->file('ine_image'));
+        $ine_back_image = $encodeDocument($request->file('ine_back_image'));
         $cofepris_image = $encodeDocument($request->file('cofepris_image'));
 
         $dm = New DeliveryMan();
@@ -133,6 +136,7 @@ class DeliveryManLoginController extends Controller
         $dm->image = $image_name;
         $dm->curp_rfc_image = $curp_rfc_image;
         $dm->ine_image = $ine_image;
+        $dm->ine_back_image = $ine_back_image;
         $dm->cofepris_image = $cofepris_image;
         $dm->status = 0;
         $dm->active = 0;
