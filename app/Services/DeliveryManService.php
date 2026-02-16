@@ -18,15 +18,19 @@ class DeliveryManService
             $imageName = 'def.png';
         }
 
-        $identityImageNames = [];
-        if (!empty($request->file('identity_image'))) {
-            foreach ($request->identity_image as $img) {
-                $identityImage = $this->upload('delivery-man/', 'png', $img);
-                array_push($identityImageNames, ['img'=>$identityImage, 'storage'=> Helpers::getDisk()]);
-            }
-            $identityImage = json_encode($identityImageNames);
-        } else {
-            $identityImage = json_encode([]);
+        $encodeDocument = function ($file) {
+            $ext = $file->getClientOriginalExtension();
+            $filename = $this->upload('delivery-man/', $ext, $file);
+            return json_encode([['img' => $filename, 'storage' => Helpers::getDisk()]]);
+        };
+
+        $ineImage = null;
+        if ($request->hasFile('ine_image')) {
+            $ineImage = $encodeDocument($request->file('ine_image'));
+        }
+        $ineBackImage = null;
+        if ($request->hasFile('ine_back_image')) {
+            $ineBackImage = $encodeDocument($request->file('ine_back_image'));
         }
 
         $driverLicenseImage = null;
@@ -52,11 +56,10 @@ class DeliveryManService
             'l_name' => $request->l_name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'identity_number' => $request->identity_number,
-            'identity_type' => $request->identity_type,
             'vehicle_id' => $request->vehicle_id,
             'zone_id' => $request->zone_id,
-            'identity_image' => $identityImage,
+            'ine_image' => $ineImage,
+            'ine_back_image' => $ineBackImage,
             'image' => $imageName,
             'active' => 0,
             'earning' => $request->earning,
@@ -76,20 +79,19 @@ class DeliveryManService
             $imageName = $deliveryMan['image'];
         }
 
-        if ($request->has('identity_image')){
-            foreach (json_decode($deliveryMan['identity_image'], true) as $img) {
-                
-                Helpers::check_and_delete('delivery-man/' , $img);
-                
-            }
-            $imgKeeper = [];
-            foreach ($request->identity_image as $img) {
-                $identityImage = $this->upload('delivery-man/', 'png', $img);
-                array_push($imgKeeper, ['img'=>$identityImage, 'storage'=> Helpers::getDisk()]);
-            }
-            $identityImage = json_encode($imgKeeper);
-        } else {
-            $identityImage = $deliveryMan['identity_image'];
+        $encodeDocument = function ($file) {
+            $ext = $file->getClientOriginalExtension();
+            $filename = $this->upload('delivery-man/', $ext, $file);
+            return json_encode([['img' => $filename, 'storage' => Helpers::getDisk()]]);
+        };
+
+        $ineImage = $deliveryMan->ine_image;
+        if ($request->hasFile('ine_image')) {
+            $ineImage = $encodeDocument($request->file('ine_image'));
+        }
+        $ineBackImage = $deliveryMan->ine_back_image;
+        if ($request->hasFile('ine_back_image')) {
+            $ineBackImage = $encodeDocument($request->file('ine_back_image'));
         }
 
         $driverLicenseImage = $deliveryMan->driver_license_image;
@@ -115,11 +117,10 @@ class DeliveryManService
             "l_name" => $request->l_name,
             "email" => $request->email,
             "phone" => $request->phone,
-            "identity_number" => $request->identity_number,
             "vehicle_id" => $request->vehicle_id,
-            "identity_type" => $request->identity_type,
             "zone_id" => $request->zone_id,
-            "identity_image" => $identityImage,
+            "ine_image" => $ineImage,
+            "ine_back_image" => $ineBackImage,
             "image" => $imageName,
             "earning" => $request->earning,
             "driver_license_image" => $driverLicenseImage,

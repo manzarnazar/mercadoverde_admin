@@ -133,72 +133,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="row g-3">
-                                <div class="col-sm-6 col-lg-12">
-                                    <div class="form-group mb-0">
-                                        <label class="input-label" for="exampleFormControlInput1">{{translate('messages.identity_type')}}<span class="form-label-secondary text-danger"
-                                            data-toggle="tooltip" data-placement="right"
-                                            data-original-title="{{ translate('messages.Required.')}}"> *
-                                            </span>
-                </label>
-                                        <select name="identity_type" class="form-control  js-select2-custom">
-                                            <option
-                                                value="passport" {{$deliveryMan['identity_type']=='passport'?'selected':''}}>
-                                                {{translate('messages.passport')}}
-                                            </option>
-                                            <option
-                                                value="driving_license" {{$deliveryMan['identity_type']=='driving_license'?'selected':''}}>
-                                                {{translate('messages.driving_license')}}
-                                            </option>
-                                            <option value="nid" {{$deliveryMan['identity_type']=='nid'?'selected':''}}>{{translate('messages.nid')}}
-                                            </option>
-                                            <option
-                                                value="store_id" {{$deliveryMan['identity_type']=='store_id'?'selected':''}}>
-                                                {{translate('messages.store_id')}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-lg-12">
-                                    <div class="form-group mb-0">
-                                        <label class="input-label" for="exampleFormControlInput1">{{translate('messages.identity_number')}}<span class="form-label-secondary text-danger"
-                                            data-toggle="tooltip" data-placement="right"
-                                            data-original-title="{{ translate('messages.Required.')}}"> *
-                                            </span>
-                </label>
-                                        <input type="text" name="identity_number" value="{{$deliveryMan['identity_number']}}"
-                                                class="form-control"
-                                                placeholder="{{ translate('messages.Ex:') }} DH-23434-LS"
-                                                required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="row g-3">
-                                <div class="col-md-6 pb-0">
-                                    <div class="row g-2">
-                                        <div class="col-12 pb-0">
-                                            <div class="form-group mb-0">
-                                                <label class="input-label" for="exampleFormControlInput1">{{translate('messages.identity_images')}}
-                                            </div>
-                                        </div>
-                                        @foreach($deliveryMan['identity_image_full_url'] as $img)
-                                        <div class="col-6 spartan_item_wrapper size--sm">
-                                            <img class="rounded border" src="{{ $img }}">
-                                        </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="input-label" for="exampleFormControlInput1">{{translate('messages.update_identity_image')}}</label>
-                                    <div>
-                                        <div class="row g-2 mt-0" id="coba"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -250,6 +184,28 @@
                                     <a href="{{ $deliveryMan->cofepris_document_image_full_url }}" target="_blank" class="mt-2 d-inline-block">{{ translate('View current file') }}</a>
                                 @endif
                                 <small class="text-muted d-block">{{ translate('pdf, doc, jpg. File size : max 2 MB') }}</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-0">
+                                <label class="input-label">{{ translate('messages.INE_front_Mexican_national_ID') }}</label>
+                                <input type="file" name="ine_image" class="form-control"
+                                    accept=".jpg,.jpeg,.png,.gif,.webp" data-max-size="2mb">
+                                @if(!empty($deliveryMan->ine_image) && count($deliveryMan->ine_image_full_url ?? []) > 0)
+                                    <a href="{{ ($deliveryMan->ine_image_full_url)[0] ?? '#' }}" target="_blank" class="mt-2 d-inline-block">{{ translate('View current file') }}</a>
+                                @endif
+                                <small class="text-muted d-block">{{ translate('jpg, png. File size : max 2 MB') }}</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-0">
+                                <label class="input-label">{{ translate('messages.INE_back_Mexican_national_ID') }}</label>
+                                <input type="file" name="ine_back_image" class="form-control"
+                                    accept=".jpg,.jpeg,.png,.gif,.webp" data-max-size="2mb">
+                                @if(!empty($deliveryMan->ine_back_image) && count($deliveryMan->ine_back_image_full_url ?? []) > 0)
+                                    <a href="{{ ($deliveryMan->ine_back_image_full_url)[0] ?? '#' }}" target="_blank" class="mt-2 d-inline-block">{{ translate('View current file') }}</a>
+                                @endif
+                                <small class="text-muted d-block">{{ translate('jpg, png. File size : max 2 MB') }}</small>
                             </div>
                         </div>
                     </div>
@@ -366,78 +322,9 @@
         });
 
 
-        $(function () {
-            $("#coba").spartanMultiImagePicker({
-                fieldName: 'identity_image[]',
-                maxCount: 5,
-                rowHeight: '100px',
-                groupClassName: 'col-6 spartan_item_wrapper size--sm',
-                maxFileSize: '',
-                placeholderImage: {
-                    image: '{{asset('public/assets/admin/img/400x400/img2.jpg')}}',
-                    width: '100%'
-                },
-                dropFileLabel: "Drop Here",
-                onAddRow: function (index, file) {
-
-                },
-                onRenderedPreview: function (index) {
-
-                },
-                onRemoveRow: function (index) {
-
-                },
-                onExtensionErr: function (index, file) {
-                    toastr.error('Please only input png or jpg type file', {
-                        CloseButton: true,
-                        ProgressBar: true
-                    });
-                },
-                onSizeErr: function (index, file) {
-                    toastr.error('File size too big', {
-                        CloseButton: true,
-                        ProgressBar: true
-                    });
-                }
-            });
-        });
-
         $('#reset_btn').click(function(){
             $('#viewer').attr('src','{{asset('storage/app/public/delivery-man')}}/{{$deliveryMan['image']}}');
-            $("#coba").empty().spartanMultiImagePicker({
-                fieldName: 'identity_image[]',
-                maxCount: 5,
-                rowHeight: '120px',
-                groupClassName: 'col-6 spartan_item_wrapper size--sm',
-                maxFileSize: '',
-                placeholderImage: {
-                    image: '{{asset('public/assets/admin/img/400x400/img2.jpg')}}',
-                    width: '100%'
-                },
-                dropFileLabel: "Drop Here",
-                onAddRow: function (index, file) {
-
-                },
-                onRenderedPreview: function (index) {
-
-                },
-                onRemoveRow: function (index) {
-
-                },
-                onExtensionErr: function (index, file) {
-                    toastr.error('{{translate('messages.please_only_input_png_or_jpg_type_file')}}', {
-                        CloseButton: true,
-                        ProgressBar: true
-                    });
-                },
-                onSizeErr: function (index, file) {
-                    toastr.error('{{translate('messages.file_size_too_big')}}', {
-                        CloseButton: true,
-                        ProgressBar: true
-                    });
-                }
-            });
-        })
+        });
 
     </script>
 @endpush

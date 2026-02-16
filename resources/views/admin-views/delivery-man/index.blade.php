@@ -154,62 +154,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="row g-3">
-                                <div class="col-sm-6 col-lg-12">
-                                    <div class="form-group mb-0">
-                                        <label class="input-label"
-                                            for="exampleFormControlInput1">{{ translate('messages.identity_type') }}<span
-                                                class="form-label-secondary text-danger" data-toggle="tooltip"
-                                                data-placement="right"
-                                                data-original-title="{{ translate('messages.Required.') }}"> *
-                                            </span>
-                                        </label>
-                                        <select required name="identity_type" data-placeholder="{{ translate('messages.select_identity_type') }}" class="form-control js-select2-custom">
-                                            <option  value="" readonly="true" hidden="true"  > {{ translate('messages.select_identity_type') }}</option>
-                                            <option value="passport">{{ translate('messages.passport') }}</option>
-                                            <option value="driving_license">{{ translate('messages.driving_license') }} </option>
-                                            <option value="nid">{{ translate('messages.nid') }}</option>
-                                            <option value="store_id">{{ translate('messages.store_id') }}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-lg-12">
-                                    <div class="form-group mb-0">
-                                        <label class="input-label"
-                                            for="exampleFormControlInput1">{{ translate('messages.identity_number') }}<span
-                                                class="form-label-secondary text-danger" data-toggle="tooltip"
-                                                data-placement="right"
-                                                data-original-title="{{ translate('messages.Required.') }}"> *
-                                            </span>
-                                        </label>
-                                        <input type="text" name="identity_number" class="form-control"
-                                            placeholder="{{ translate('messages.Ex:') }} DH-23434-LS" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="form-group">
-                                <label class="form-label"
-                                    for="exampleFormControlInput1">{{ translate('messages.identity_image') }}
-
-                                    <span
-                                        class="form-label-secondary" data-toggle="tooltip" data-placement="right"
-                                        data-original-title="{{ translate('messages.Max_5_Identity_Images') }}"><img
-                                            src="{{ asset('/public/assets/admin/img/info-circle.svg') }}"
-                                            alt="{{ translate('messages.Max_5_Identity_Images') }}"></span>
-
-                                    <span
-                                    class="form-label-secondary text-danger" data-toggle="tooltip"
-                                    data-placement="right"
-                                    data-original-title="{{ translate('messages.Required.') }}"> *
-                                </span></label>
-                                <div>
-                                    <div class="row" id="coba"></div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -251,6 +195,22 @@
                                 <input type="file" name="cofepris_document_image" class="form-control"
                                     accept=".doc, .pdf, .jpg, .png, .jpeg" data-max-size="2mb">
                                 <small class="text-muted">{{ translate('pdf, doc, jpg. File size : max 2 MB') }}</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-0">
+                                <label class="input-label">{{ translate('messages.INE_front_Mexican_national_ID') }}</label>
+                                <input type="file" name="ine_image" class="form-control"
+                                    accept=".jpg,.jpeg,.png,.gif,.webp" data-max-size="2mb">
+                                <small class="text-muted">{{ translate('jpg, png. File size : max 2 MB') }}</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-0">
+                                <label class="input-label">{{ translate('messages.INE_back_Mexican_national_ID') }}</label>
+                                <input type="file" name="ine_back_image" class="form-control"
+                                    accept=".jpg,.jpeg,.png,.gif,.webp" data-max-size="2mb">
+                                <small class="text-muted">{{ translate('jpg, png. File size : max 2 MB') }}</small>
                             </div>
                         </div>
                     </div>
@@ -379,79 +339,8 @@
             readURL(this);
         });
 
-        $(function() {
-            $("#coba").spartanMultiImagePicker({
-                fieldName: 'identity_image[]',
-                maxCount: 5,
-                rowHeight: '120px',
-                groupClassName: 'col-6 spartan_item_wrapper size--md',
-                maxFileSize: '',
-                placeholderImage: {
-                    image: '{{ asset('public/assets/admin/img/400x400/img2.jpg') }}',
-                    width: '100%'
-                },
-                dropFileLabel: "Drop Here",
-                onAddRow: function(index, file) {
-
-                },
-                onRenderedPreview: function(index) {
-
-                },
-                onRemoveRow: function(index) {
-
-                },
-                onExtensionErr: function(index, file) {
-                    toastr.error(
-                    '{{ translate('messages.please_only_input_png_or_jpg_type_file') }}', {
-                        CloseButton: true,
-                        ProgressBar: true
-                    });
-                },
-                onSizeErr: function(index, file) {
-                    toastr.error('{{ translate('messages.file_size_too_big') }}', {
-                        CloseButton: true,
-                        ProgressBar: true
-                    });
-                }
-            });
-        });
-
         $('#reset_btn').click(function() {
             $('#viewer').attr('src', '{{ asset('public/assets/admin/img/400x400/img2.jpg') }}');
-            $("#coba").empty().spartanMultiImagePicker({
-                fieldName: 'identity_image[]',
-                maxCount: 5,
-                rowHeight: '120px',
-                groupClassName: 'col-6 spartan_item_wrapper size--md',
-                maxFileSize: '',
-                placeholderImage: {
-                    image: '{{ asset('public/assets/admin/img/400x400/img2.jpg') }}',
-                    width: '100%'
-                },
-                dropFileLabel: "Drop Here",
-                onAddRow: function(index, file) {
-
-                },
-                onRenderedPreview: function(index) {
-
-                },
-                onRemoveRow: function(index) {
-
-                },
-                onExtensionErr: function(index, file) {
-                    toastr.error(
-                    '{{ translate('messages.please_only_input_png_or_jpg_type_file') }}', {
-                        CloseButton: true,
-                        ProgressBar: true
-                    });
-                },
-                onSizeErr: function(index, file) {
-                    toastr.error('{{ translate('messages.file_size_too_big') }}', {
-                        CloseButton: true,
-                        ProgressBar: true
-                    });
-                }
-            });
-        })
+        });
     </script>
 @endpush

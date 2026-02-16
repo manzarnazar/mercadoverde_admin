@@ -110,30 +110,30 @@ $countryCode= strtolower($country?$country->value:'auto');
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group mb-3">
-                                        <label class="input-label"
-                                            for="exampleFormControlInput1">{{ translate('messages.identity_type') }}</label>
-                                        <select name="identity_type" class="form-control __form-control">
-                                            <option value="passport">{{ translate('messages.passport') }}</option>
-                                            <option value="driving_license">{{ translate('messages.driving_license') }}</option>
-                                            <option value="nid">{{ translate('messages.nid') }}</option>
-                                            <option value="restaurant_id">{{ translate('messages.store_id') }}</option>
-                                        </select>
+                                        <label class="input-label">{{ translate('messages.TIN Certificate') }}</label>
+                                        <input type="file" name="curp_rfc_image" class="form-control __form-control" accept=".pdf,.jpg,.jpeg,.png,.webp" required>
+                                        <small class="text-muted">{{ translate('pdf, jpg. max 2 MB') }}</small>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group mb-3">
-                                        <label class="input-label"
-                                            for="exampleFormControlInput1">{{ translate('messages.identity_number') }}</label>
-                                        <input type="text" name="identity_number" class="form-control __form-control"
-                                            value="{{ old('identity_number') }}" placeholder="{{ translate('messages.Ex:') }} DH-23434-LS" required>
+                                        <label class="input-label">{{ translate('messages.INE_front_Mexican_national_ID') }}</label>
+                                        <input type="file" name="ine_image" class="form-control __form-control" accept=".jpg,.jpeg,.png,.gif,.webp" required>
+                                        <small class="text-muted">{{ translate('jpg, png. max 2 MB') }}</small>
                                     </div>
                                 </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group mb-0">
-                                        <label class="input-label">{{ translate('messages.identity_image') }}</label>
-                                        <div>
-                                            <div class="row" id="coba"></div>
-                                        </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group mb-3">
+                                        <label class="input-label">{{ translate('messages.INE_back_Mexican_national_ID') }}</label>
+                                        <input type="file" name="ine_back_image" class="form-control __form-control" accept=".jpg,.jpeg,.png,.gif,.webp" required>
+                                        <small class="text-muted">{{ translate('jpg, png. max 2 MB') }}</small>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group mb-3">
+                                        <label class="input-label">{{ translate('messages.COFEPRIS Document') }}</label>
+                                        <input type="file" name="cofepris_image" class="form-control __form-control" accept=".pdf,.jpg,.jpeg,.png,.webp" required>
+                                        <small class="text-muted">{{ translate('pdf, jpg. max 2 MB') }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -253,45 +253,6 @@ $countryCode= strtolower($country?$country->value:'auto');
 
     </script>
 
-    <script src="{{ asset('public/assets/admin/js/spartan-multi-image-picker.js') }}"></script>
-    <script type="text/javascript">
-        $(function() {
-            $("#coba").spartanMultiImagePicker({
-                fieldName: 'identity_image[]',
-                maxCount: 5,
-                rowHeight: '120px',
-                groupClassName: 'col-lg-2 col-md-4 col-sm-4 col-6',
-                maxFileSize: '',
-                placeholderImage: {
-                    image: '{{ asset('public/assets/admin/img/upload-img.png') }}',
-                    width: '100%',
-                },
-                dropFileLabel: "Drop Here",
-                onAddRow: function(index, file) {
-
-                },
-                onRenderedPreview: function(index) {
-
-                },
-                onRemoveRow: function(index) {
-
-                },
-                onExtensionErr: function(index, file) {
-                    toastr.error('{{ translate('messages.please_only_input_png_or_jpg_type_file') }}', {
-                        CloseButton: true,
-                        ProgressBar: true
-                    });
-                },
-                onSizeErr: function(index, file) {
-                    toastr.error('{{ translate('messages.file_size_too_big') }}', {
-                        CloseButton: true,
-                        ProgressBar: true
-                    });
-                }
-            });
-        });
-
-    </script>
 
 
     {{-- recaptcha scripts start --}}

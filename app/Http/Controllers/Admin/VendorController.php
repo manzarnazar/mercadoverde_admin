@@ -310,11 +310,15 @@ class VendorController extends Controller
 
             Helpers::check_and_delete('delivery-man/' , $dm['image']);
 
-
-            foreach (json_decode($dm['identity_image'], true) as $img) {
-
-                Helpers::check_and_delete('delivery-man/' , $img);
-
+            foreach (['curp_rfc_image', 'ine_image', 'ine_back_image', 'cofepris_image'] as $docKey) {
+                $decoded = json_decode($dm[$docKey] ?? '[]', true);
+                if (is_array($decoded)) {
+                    foreach ($decoded as $item) {
+                        if (!empty($item['img'])) {
+                            Helpers::check_and_delete('delivery-man/', $item['img']);
+                        }
+                    }
+                }
             }
         }
 
