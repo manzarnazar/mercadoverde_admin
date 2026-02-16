@@ -7689,7 +7689,6 @@ Smartly or Earn. ',
   'Ex: Name' => 'Ex: Name',
   'Vendor Info' => 'Vendor Info',
   'Total:' => 'Total:',
-<<<<<<< Updated upstream
   'total_tax_amount' => 'Total tax amount',
   'tax_type' => 'Tax type',
   'tax_amount' => 'Tax amount',
