@@ -477,7 +477,7 @@
                     <div>
                         <div class="card p-20">
                             <div class="mb-20">
-                                <h3 class="mb-1">{{ translate('Business TIN') }}</h3>
+                                <h3 class="mb-1">{{ translate('CURP/RFC (SITUACION FISCAL)') }}</h3>
                                 {{-- <p class="fz-12px mb-0">{{translate('Lorem ipsum dolor sit amet, consectetur adipiscing elit.')}}</p> --}}
                             </div>
                             <div class="row g-3">
@@ -485,10 +485,10 @@
                                     <div class="bg--secondary rounded p-20 h-100">
                                         <div class="form-group  error-wrapper">
                                             <label class="input-label mb-2 d-block title-clr fw-normal"
-                                                for="exampleFormControlInput1">{{ translate('Taxpayer Identification Number(TIN)') }}
+                                                for="exampleFormControlInput1">{{ translate('CURP/RFC (SITUACION FISCAL)') }}
                                             </label>
                                             <input type="text" name="tin"
-                                                placeholder="{{ translate('Type Your Taxpayer Identification Number(TIN)') }}"
+                                                placeholder="{{ translate('Enter CURP or RFC') }}"
                                                 class="form-control">
                                         </div>
                                     </div>
@@ -497,7 +497,7 @@
                                     <div class="bg--secondary rounded p-20 h-100 single-document-uploaderwrap">
                                         <div class="d-flex align-items-center gap-1 justify-content-between mb-20">
                                             <div>
-                                                <h4 class="mb-1 fz--14px">{{ translate('TIN Certificate') }}</h4>
+                                                <h4 class="mb-1 fz--14px">{{ translate('CURP/RFC Certificate (Situación Fiscal)') }}</h4>
                                                 <p class="fz-12px mb-0">
                                                     {{ translate('pdf, doc, jpg. File size : max 2 MB') }}</p>
                                             </div>
@@ -531,6 +531,22 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="bg--secondary rounded p-20 single-document-uploaderwrap">
+                                        <div class="d-flex align-items-center gap-1 justify-content-between mb-20">
+                                            <div>
+                                                <h4 class="mb-1 fz--14px">{{ translate('COFEPRIS Document (Health Regulatory Permission)') }}</h4>
+                                                <p class="fz-12px mb-0">
+                                                    {{ translate('pdf, doc, jpg. File size : max 2 MB') }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group error-wrapper">
+                                            <input type="file" name="cofepris_document_image"
+                                                class="form-control" accept=".doc, .pdf, .jpg, .png, .jpeg"
+                                                data-max-size="2mb">
                                         </div>
                                     </div>
                                 </div>

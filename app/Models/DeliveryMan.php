@@ -30,7 +30,11 @@ class DeliveryMan extends Authenticatable
         'auth_token',
     ];
 
+<<<<<<< Updated upstream
     protected $appends = ['image_full_url','identity_image_full_url','curp_rfc_image_full_url','ine_image_full_url','cofepris_image_full_url'];
+=======
+    protected $appends = ['image_full_url','identity_image_full_url','driver_license_image_full_url','curp_rfc_certificate_image_full_url','cofepris_document_image_full_url'];
+>>>>>>> Stashed changes
 
     public function getFullNameAttribute()
     {
@@ -174,6 +178,42 @@ class DeliveryMan extends Authenticatable
 
         return Helpers::get_full_url('delivery-man',$value,'public');
     }
+    public function getDriverLicenseImageFullUrlAttribute(){
+        $value = $this->driver_license_image;
+        if ($value && count($this->storage) > 0) {
+            foreach ($this->storage as $storage) {
+                if ($storage['key'] == 'driver_license_image') {
+                    return Helpers::get_full_url('delivery-man', $value, $storage['value']);
+                }
+            }
+        }
+        return $value ? Helpers::get_full_url('delivery-man', $value, 'public') : null;
+    }
+
+    public function getCurpRfcCertificateImageFullUrlAttribute(){
+        $value = $this->curp_rfc_certificate_image;
+        if ($value && count($this->storage) > 0) {
+            foreach ($this->storage as $storage) {
+                if ($storage['key'] == 'curp_rfc_certificate_image') {
+                    return Helpers::get_full_url('delivery-man', $value, $storage['value']);
+                }
+            }
+        }
+        return $value ? Helpers::get_full_url('delivery-man', $value, 'public') : null;
+    }
+
+    public function getCofeprisDocumentImageFullUrlAttribute(){
+        $value = $this->cofepris_document_image;
+        if ($value && count($this->storage) > 0) {
+            foreach ($this->storage as $storage) {
+                if ($storage['key'] == 'cofepris_document_image') {
+                    return Helpers::get_full_url('delivery-man', $value, $storage['value']);
+                }
+            }
+        }
+        return $value ? Helpers::get_full_url('delivery-man', $value, 'public') : null;
+    }
+
     public function getIdentityImageFullUrlAttribute(){
         $images = [];
         $value = is_array($this->identity_image)

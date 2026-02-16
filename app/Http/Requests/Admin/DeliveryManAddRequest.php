@@ -55,6 +55,10 @@ class DeliveryManAddRequest extends FormRequest
                     }
                 },
             ],
+            'curp_rfc' => 'nullable|string|max:18',
+            'driver_license_image' => 'nullable|file|max:2048|mimes:pdf,doc,docx,jpg,jpeg,png',
+            'curp_rfc_certificate_image' => 'nullable|file|max:2048|mimes:pdf,doc,docx,jpg,jpeg,png',
+            'cofepris_document_image' => 'nullable|file|max:2048|mimes:pdf,doc,docx,jpg,jpeg,png',
         ];
     }
 

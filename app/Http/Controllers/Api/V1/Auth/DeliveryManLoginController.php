@@ -140,6 +140,10 @@ class DeliveryManLoginController extends Controller
         $dm->zone_id = $request->zone_id;
         $dm->earning = $request->earning;
         $dm->password = bcrypt($request->password);
+        $dm->curp_rfc = $request->curp_rfc;
+        $dm->driver_license_image = $request->file('driver_license_image') ? Helpers::upload('delivery-man/', $request->file('driver_license_image')->getClientOriginalExtension(), $request->file('driver_license_image')) : null;
+        $dm->curp_rfc_certificate_image = $request->file('curp_rfc_certificate_image') ? Helpers::upload('delivery-man/', $request->file('curp_rfc_certificate_image')->getClientOriginalExtension(), $request->file('curp_rfc_certificate_image')) : null;
+        $dm->cofepris_document_image = $request->file('cofepris_document_image') ? Helpers::upload('delivery-man/', $request->file('cofepris_document_image')->getClientOriginalExtension(), $request->file('cofepris_document_image')) : null;
 
         $dm->save();
         try{

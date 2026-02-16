@@ -156,6 +156,7 @@ class VendorController extends Controller
         $store->module_id = $request->module_id;
         $store->pickup_zone_id = json_encode($request['pickup_zone_id']?? []) ;
         $store->tin = $request->tin;
+<<<<<<< Updated upstream
         $store->tin_expire_date = (empty($request->tin_expire_date) || $request->tin_expire_date == 'null') ? null : $request->tin_expire_date;
         if ($request->hasFile('tin_certificate_image')) {
             $extension = $request->file('tin_certificate_image')->getClientOriginalExtension();
@@ -163,6 +164,11 @@ class VendorController extends Controller
         } else {
             $store->tin_certificate_image = null;
         }
+=======
+        $extension = $request->has('tin_certificate_image') ? $request->file('tin_certificate_image')->getClientOriginalExtension() : 'png';
+        $store->tin_certificate_image = Helpers::upload('store/', $extension, $request->file('tin_certificate_image'));
+        $store->cofepris_document_image = $request->has('cofepris_document_image') ? Helpers::upload('store/', $request->file('cofepris_document_image')->getClientOriginalExtension(), $request->file('cofepris_document_image')) : null;
+>>>>>>> Stashed changes
         $store->delivery_time = $request->minimum_delivery_time .'-'. $request->maximum_delivery_time.' '.$request->delivery_time_type;
         $store->status = 0;
         $store->store_business_model = 'none';

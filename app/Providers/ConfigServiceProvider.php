@@ -199,8 +199,27 @@ class ConfigServiceProvider extends ServiceProvider
 
             $timezone = BusinessSetting::where(['key' => 'timezone'])->first();
             if ($timezone) {
-                Config::set('timezone', $timezone->value);
-                date_default_timezone_set($timezone->value);
+                $timezoneValue = $timezone->value;
+                // Map deprecated/invalid PHP timezone IDs to valid IANA identifiers
+                $timezoneMap = [
+                    'US/Central' => 'America/Chicago',
+                    'US/Eastern' => 'America/New_York',
+                    'US/Mountain' => 'America/Denver',
+                    'US/Pacific' => 'America/Los_Angeles',
+                    'US/Alaska' => 'America/Anchorage',
+                    'US/Hawaii' => 'Pacific/Honolulu',
+                ];
+                if (isset($timezoneMap[$timezoneValue])) {
+                    $timezoneValue = $timezoneMap[$timezoneValue];
+                }
+                $fallback = config('app.timezone', 'UTC');
+                if (@timezone_open($timezoneValue)) {
+                    Config::set('timezone', $timezoneValue);
+                    date_default_timezone_set($timezoneValue);
+                } else {
+                    Config::set('timezone', $fallback);
+                    date_default_timezone_set($fallback);
+                }
             }
 
             $timeformat = BusinessSetting::where(['key' => 'timeformat'])->first();

@@ -282,7 +282,7 @@
                                     <span class="card-header-icon mr-2">
                                         <i class="tio-user"></i>
                                     </span>
-                                    <span class="ml-1">{{ translate('Business TIN') }}</span>
+                                    <span class="ml-1">{{ translate('CURP/RFC (SITUACION FISCAL)') }}</span>
                                 </h5>
                             </div>
                             <div class="card-body">
@@ -322,11 +322,20 @@
 
                                         <div class=" d-flex justify-content-start gap-1">
                                             <span class="text-custom-nowrap text-wrap"><strong class=" text-dark">
-                                                    {{ translate('Taxpayer Identification Number(TIN)') }}:
+                                                    {{ translate('CURP/RFC (SITUACION FISCAL)') }}:
                                                 </strong></span>
                                             <span class="pl-1">{{ $store->tin }}</span>
                                         </div>
+<<<<<<< Updated upstream
 
+=======
+                                        @if($store->cofepris_document_image ?? null)
+                                        <div class=" d-flex justify-content-start gap-1 mt-2">
+                                            <span class="text-custom-nowrap text-wrap"><strong class=" text-dark">{{ translate('COFEPRIS Document') }}: </strong></span>
+                                            <a href="{{ $store->cofepris_document_image_full_url }}" target="_blank" class="pl-1">{{ translate('View document') }}</a>
+                                        </div>
+                                        @endif
+>>>>>>> Stashed changes
                                     </div>
 
                                 </div>

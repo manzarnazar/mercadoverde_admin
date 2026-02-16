@@ -29,6 +29,24 @@ class DeliveryManService
             $identityImage = json_encode([]);
         }
 
+        $driverLicenseImage = null;
+        if ($request->has('driver_license_image')) {
+            $ext = $request->file('driver_license_image')->getClientOriginalExtension();
+            $driverLicenseImage = $this->upload('delivery-man/', $ext, $request->file('driver_license_image'));
+        }
+
+        $curpRfcCertificateImage = null;
+        if ($request->has('curp_rfc_certificate_image')) {
+            $ext = $request->file('curp_rfc_certificate_image')->getClientOriginalExtension();
+            $curpRfcCertificateImage = $this->upload('delivery-man/', $ext, $request->file('curp_rfc_certificate_image'));
+        }
+
+        $cofeprisDocumentImage = null;
+        if ($request->has('cofepris_document_image')) {
+            $ext = $request->file('cofepris_document_image')->getClientOriginalExtension();
+            $cofeprisDocumentImage = $this->upload('delivery-man/', $ext, $request->file('cofepris_document_image'));
+        }
+
         return [
             'f_name' => $request->f_name,
             'l_name' => $request->l_name,
@@ -43,6 +61,10 @@ class DeliveryManService
             'active' => 0,
             'earning' => $request->earning,
             'password' => bcrypt($request->password),
+            'driver_license_image' => $driverLicenseImage,
+            'curp_rfc' => $request->curp_rfc,
+            'curp_rfc_certificate_image' => $curpRfcCertificateImage,
+            'cofepris_document_image' => $cofeprisDocumentImage,
         ];
     }
 
@@ -70,6 +92,24 @@ class DeliveryManService
             $identityImage = $deliveryMan['identity_image'];
         }
 
+        $driverLicenseImage = $deliveryMan->driver_license_image;
+        if ($request->has('driver_license_image')) {
+            $ext = $request->file('driver_license_image')->getClientOriginalExtension();
+            $driverLicenseImage = $this->updateAndUpload('delivery-man/', $deliveryMan->driver_license_image ?? '', $ext, $request->file('driver_license_image'));
+        }
+
+        $curpRfcCertificateImage = $deliveryMan->curp_rfc_certificate_image;
+        if ($request->has('curp_rfc_certificate_image')) {
+            $ext = $request->file('curp_rfc_certificate_image')->getClientOriginalExtension();
+            $curpRfcCertificateImage = $this->updateAndUpload('delivery-man/', $deliveryMan->curp_rfc_certificate_image ?? '', $ext, $request->file('curp_rfc_certificate_image'));
+        }
+
+        $cofeprisDocumentImage = $deliveryMan->cofepris_document_image;
+        if ($request->has('cofepris_document_image')) {
+            $ext = $request->file('cofepris_document_image')->getClientOriginalExtension();
+            $cofeprisDocumentImage = $this->updateAndUpload('delivery-man/', $deliveryMan->cofepris_document_image ?? '', $ext, $request->file('cofepris_document_image'));
+        }
+
         return [
             "f_name" => $request->f_name,
             "l_name" => $request->l_name,
@@ -82,6 +122,10 @@ class DeliveryManService
             "identity_image" => $identityImage,
             "image" => $imageName,
             "earning" => $request->earning,
+            "driver_license_image" => $driverLicenseImage,
+            "curp_rfc" => $request->curp_rfc,
+            "curp_rfc_certificate_image" => $curpRfcCertificateImage,
+            "cofepris_document_image" => $cofeprisDocumentImage,
             "password" => strlen($request->password)>1?bcrypt($request->password):$deliveryMan['password'],
             "application_status" => in_array($deliveryMan['application_status'], ['pending','denied']) ? 'approved' : $deliveryMan['application_status'],
             "status" => in_array($deliveryMan['application_status'], ['pending','denied']) ? 1 : $deliveryMan['status'],

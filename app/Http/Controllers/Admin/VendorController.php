@@ -138,6 +138,7 @@ class VendorController extends Controller
         $store->vendor_id = $vendor->id;
         $store->zone_id = $request->zone_id;
         $store->tin = $request->tin;
+<<<<<<< Updated upstream
         $store->tin_expire_date = (empty($request->tin_expire_date) || $request->tin_expire_date == 'null') ? null : $request->tin_expire_date;
         if ($request->hasFile('tin_certificate_image')) {
             $extension = $request->file('tin_certificate_image')->getClientOriginalExtension();
@@ -145,6 +146,11 @@ class VendorController extends Controller
         } else {
             $store->tin_certificate_image = null;
         }
+=======
+        $extension = $request->has('tin_certificate_image') ? $request->file('tin_certificate_image')->getClientOriginalExtension() : 'png';
+        $store->tin_certificate_image = Helpers::upload('store/', $extension, $request->file('tin_certificate_image'));
+        $store->cofepris_document_image = $request->has('cofepris_document_image') ? Helpers::upload('store/', $request->file('cofepris_document_image')->getClientOriginalExtension(), $request->file('cofepris_document_image')) : null;
+>>>>>>> Stashed changes
         $store->delivery_time = $request->minimum_delivery_time .'-'. $request->maximum_delivery_time.' '.$request->delivery_time_type;
         $store->module_id = Config::get('module.current_module_id');
         try {
@@ -252,8 +258,15 @@ class VendorController extends Controller
         $store->longitude = $request->longitude;
         $store->zone_id = $request->zone_id;
         $store->tin = $request->tin;
+<<<<<<< Updated upstream
         $store->tin_expire_date = (empty($request->tin_expire_date) || $request->tin_expire_date == 'null') ? null : $request->tin_expire_date;
         $store->tin_certificate_image = $request->hasFile('tin_certificate_image') ? Helpers::update('store/', $store->tin_certificate_image, $request->file('tin_certificate_image')->getClientOriginalExtension(), $request->file('tin_certificate_image')) : $store->tin_certificate_image;
+=======
+        $extension = $request->has('tin_certificate_image') ? $request->file('tin_certificate_image')->getClientOriginalExtension() : 'png';
+        $store->tin_certificate_image = $request->has('tin_certificate_image') ? Helpers::update('store/', $store->tin_certificate_image, $extension, $request->file('tin_certificate_image')) : $store->tin_certificate_image;
+        $cofeprisExtension = $request->has('cofepris_document_image') ? $request->file('cofepris_document_image')->getClientOriginalExtension() : 'png';
+        $store->cofepris_document_image = $request->has('cofepris_document_image') ? Helpers::update('store/', $store->cofepris_document_image ?? '', $cofeprisExtension, $request->file('cofepris_document_image')) : $store->cofepris_document_image;
+>>>>>>> Stashed changes
         $store->delivery_time = $request->minimum_delivery_time .'-'. $request->maximum_delivery_time.' '.$request->delivery_time_type;
         $store->save();
 

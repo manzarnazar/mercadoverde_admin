@@ -429,19 +429,28 @@
                             <div class="p-20 mb-3">
                                 <div class="card-body">
                                     <div class="mb-3">
-                                        <h3 class="mb-2">{{ translate('Business TIN') }}</h3>
+                                        <h3 class="mb-2">{{ translate('CURP/RFC (SITUACION FISCAL)') }}</h3>
                                         {{-- <p class="fz-12px mb-0">{{translate('Lorem ipsum dolor sit amet, consectetur adipiscing elit.')}}</p> --}}
                                     </div>
                                     <div class="row g-3">
                                         <div class="col-md-8 col-xxl-8">
                                             <div class="card __card bg-F8F9FC rounded p-20 h-100">
                                                 <div class="card-body">
+<<<<<<< Updated upstream
                                                     <div class="form-group mb-3">
                                                         <label class="input-label mb-2 d-block title-clr fw-normal"
                                                                for="exampleFormControlInput1">{{ translate('Taxpayer Identification Number(TIN)') }}
                                                         </label>
                                                         <input type="text" name="tin"
                                                                placeholder="{{ translate('Type Your Taxpayer Identification Number(TIN)') }}"
+=======
+                                                    <div class="form-group mb-0">
+                                                        <label class="input-label mb-2 d-block title-clr fw-normal"
+                                                               for="exampleFormControlInput1">{{ translate('CURP/RFC (SITUACION FISCAL)') }}
+                                                        </label>
+                                                        <input type="text" name="tin"
+                                                               placeholder="{{ translate('Enter CURP or RFC') }}"
+>>>>>>> Stashed changes
                                                                class=" form-control __form-control">
                                                     </div>
                                                 </div>
@@ -452,7 +461,7 @@
                                                 <div
                                                     class="d-flex align-items-center gap-1 justify-content-between mb-20 mb-4">
                                                     <div>
-                                                        <h4 class="mb-2 fz--14px">{{ translate('TIN Certificate') }}</h4>
+                                                        <h4 class="mb-2 fz--14px">{{ translate('CURP/RFC Certificate (Situación Fiscal)') }}</h4>
                                                         <p class="fz-12px mb-0">
                                                             {{ translate('pdf, doc, jpg. File size : max 2 MB') }}</p>
                                                     </div>
@@ -488,6 +497,20 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="bg--secondary rounded p-20 single-document-uploaderwrap">
+                                                <div class="d-flex align-items-center gap-1 justify-content-between mb-20 mb-4">
+                                                    <div>
+                                                        <h4 class="mb-2 fz--14px">{{ translate('COFEPRIS Document (Health Regulatory Permission)') }}</h4>
+                                                        <p class="fz-12px mb-0">
+                                                            {{ translate('pdf, doc, jpg. File size : max 2 MB') }}</p>
+                                                    </div>
+                                                </div>
+                                                <input type="file" name="cofepris_document_image"
+                                                       class="form-control document_input"
+                                                       accept=".doc, .pdf, .jpg, .png, .jpeg">
                                             </div>
                                         </div>
                                     </div>
@@ -1032,6 +1055,7 @@
             const logo = $('input[name="logo"]')[0];
             const cover = $('input[name="cover_photo"]')[0];
             const tin_certificate_image = $('input[name="tin_certificate_image"]')[0];
+            const cofepris_document_image = $('input[name="cofepris_document_image"]')[0];
 
             const maxFileSize = 2 * 1024 * 1024; // 2MB in bytes
 
@@ -1051,7 +1075,10 @@
                 toastr.error("{{ translate('Vendor_logo_must_be_less_than_2MB') }}");
                 e.preventDefault();
             } else if (tin_certificate_image.files.length && tin_certificate_image.files[0].size > maxFileSize) {
-                toastr.error("{{ translate('Tin_certificate_must_be_less_than_2MB') }}");
+                toastr.error("{{ translate('CURP_RFC_certificate_must_be_less_than_2MB') }}");
+                e.preventDefault();
+            } else if (cofepris_document_image.files.length && cofepris_document_image.files[0].size > maxFileSize) {
+                toastr.error("{{ translate('COFEPRIS_document_must_be_less_than_2MB') }}");
                 e.preventDefault();
             } else if (cover.files[0].size > maxFileSize) {
                 toastr.error("{{ translate('Vendor_cover_photo_must_be_less_than_2MB') }}");

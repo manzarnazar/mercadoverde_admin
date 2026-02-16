@@ -216,6 +216,49 @@
             <div class="card mt-3">
                 <div class="card-header">
                     <h5 class="card-title">
+                        <span class="card-title-icon"><i class="tio-document"></i></span>
+                        <span>{{ translate('Documents') }}</span>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="form-group mb-0">
+                                <label class="input-label">{{ translate("Driver's License") }}</label>
+                                <input type="file" name="driver_license_image" class="form-control"
+                                    accept=".doc, .pdf, .jpg, .png, .jpeg" data-max-size="2mb">
+                                <small class="text-muted">{{ translate('pdf, doc, jpg. File size : max 2 MB') }}</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-0">
+                                <label class="input-label">{{ translate('CURP/RFC (SITUACION FISCAL)') }}</label>
+                                <input type="text" name="curp_rfc" class="form-control"
+                                    placeholder="{{ translate('Enter CURP or RFC') }}">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-0">
+                                <label class="input-label">{{ translate('CURP/RFC Certificate (Situación Fiscal)') }}</label>
+                                <input type="file" name="curp_rfc_certificate_image" class="form-control"
+                                    accept=".doc, .pdf, .jpg, .png, .jpeg" data-max-size="2mb">
+                                <small class="text-muted">{{ translate('pdf, doc, jpg. File size : max 2 MB') }}</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-0">
+                                <label class="input-label">{{ translate('COFEPRIS Document (Health Regulatory Permission)') }}</label>
+                                <input type="file" name="cofepris_document_image" class="form-control"
+                                    accept=".doc, .pdf, .jpg, .png, .jpeg" data-max-size="2mb">
+                                <small class="text-muted">{{ translate('pdf, doc, jpg. File size : max 2 MB') }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5 class="card-title">
                         <span class="card-title-icon"><i class="tio-user"></i></span>
                         <span>
                             {{ translate('login_information') }}
