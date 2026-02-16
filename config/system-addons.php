@@ -5,7 +5,7 @@
     'username' => 'nnmagency',
     'purchase_key' => '620511e5-74f0-48a6-b22e-d1e4bb5496e5',
     'software_id' => 'MzY3NzIxMTI=',
-    'domain' => 'admin.abastos.app',
+    'domain' => 'admin.mercadoverde.app',
     'software_type' => 'product',
   ),
   'vendor_panel' => 
@@ -50,7 +50,7 @@
     'username' => 'nnmagency',
     'purchase_key' => '620511e5-74f0-48a6-b22e-d1e4bb5496e5',
     'software_id' => 'NDUzNzAzNTE=',
-    'domain' => 'admin.abastos.app',
+    'domain' => 'admin.mercadoverde.app',
     'software_type' => 'addon',
   ),
 );
