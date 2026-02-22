@@ -61,8 +61,10 @@ class DmVehicleController extends BaseController
             ]
         );
         if (isset($temp)) {
+            $conflictRange = $temp->starting_coverage_area . '–' . $temp->maximum_coverage_area . ' km';
+            $message = translate('messages.Coverage_area_overlapped') . ' (' . $conflictRange . ')';
             return response()->json(['errors' => [
-                ['code' => 'Vehicle_overlapped', 'message' => translate('messages.Coverage_area_overlapped')]
+                ['code' => 'Vehicle_overlapped', 'message' => $message]
             ]]);
         }
         $vehicle = $this->vehicleRepo->add(data: $this->vehicleService->getAddData(request: $request));
@@ -89,8 +91,10 @@ class DmVehicleController extends BaseController
             id: $id
         );
         if (isset($temp)) {
+            $conflictRange = $temp->starting_coverage_area . '–' . $temp->maximum_coverage_area . ' km';
+            $message = translate('messages.Coverage_area_overlapped') . ' (' . $conflictRange . ')';
             return response()->json(['errors' => [
-                ['code' => 'Vehicle_overlapped', 'message' => translate('messages.Coverage_area_overlapped')]
+                ['code' => 'Vehicle_overlapped', 'message' => $message]
             ]]);
         }
         $vehicle = $this->vehicleRepo->update(id: $id ,data: $this->vehicleService->getUpdateData(request: $request));
