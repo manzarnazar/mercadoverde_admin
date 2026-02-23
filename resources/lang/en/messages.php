@@ -521,6 +521,7 @@
   'INE_card' => 'INE Card',
   'INE_card_front' => 'INE Card (Front)',
   'INE_card_back' => 'INE Card (Back)',
+  'Identity & Documents' => 'Identity & Documents',
   'COFEPRIS_document_is_required' => 'COFEPRIS document is required',
   'login_information' => 'Login information',
   'pending_delivery_man' => 'Pending delivery man',

@@ -521,6 +521,7 @@
   'INE_card' => 'Tarjeta INE',
   'INE_card_front' => 'Tarjeta INE (Frente)',
   'INE_card_back' => 'Tarjeta INE (Reverso)',
+  'Identity & Documents' => 'Identidad y documentos',
   'COFEPRIS_document_is_required' => 'El documento COFEPRIS es requerido',
   'login_information' => 'Información de acceso',
   'pending_delivery_man' => 'Repartidor pendiente',

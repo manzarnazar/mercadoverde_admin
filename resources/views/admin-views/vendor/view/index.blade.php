@@ -282,7 +282,7 @@
                                     <span class="card-header-icon mr-2">
                                         <i class="tio-user"></i>
                                     </span>
-                                    <span class="ml-1">{{ translate('Identity & Documents') }}</span>
+                                    <span class="ml-1">{{ translate('messages.Identity & Documents') }}</span>
                                 </h5>
                             </div>
                             <div class="card-body">
