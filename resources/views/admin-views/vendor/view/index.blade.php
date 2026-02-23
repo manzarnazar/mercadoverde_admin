@@ -273,7 +273,7 @@
                 </div>
             </div>
 
-            @if ($store->tin)
+            @if ($store->tin || $store->tin_certificate_image || $store->ine_image || $store->ine_back_image || $store->cofepris_document_image)
                 <div class="row pt-3 g-3">
                     <div class="col-12">
                         <div class="card h-100">
@@ -282,11 +282,12 @@
                                     <span class="card-header-icon mr-2">
                                         <i class="tio-user"></i>
                                     </span>
-                                    <span class="ml-1">{{ translate('CURP/RFC (SITUACION FISCAL)') }}</span>
+                                    <span class="ml-1">{{ translate('Identity & Documents') }}</span>
                                 </h5>
                             </div>
                             <div class="card-body">
                                 <div class="resturant--info-address flex-sm-nowrap flex-wrap gap-2">
+                                    @if($store->tin_certificate_image ?? null)
                                     <div class="pdf-single  cus-document-responsive"
                                         data-pdf-url="{{ $store->tin_certificate_image_full_url ?? asset('public/assets/admin/img/upload-cloud.png') }}">
                                         <div class="pdf-frame">
@@ -310,22 +311,36 @@
                                                         width="34" alt="File Type Logo">
                                                 @endif
                                                 <div class="fs-13 text--title d-flex flex-column">
-                                                    <span class="file-name js-filename-truncate"></span>
+                                                    <span class="file-name js-filename-truncate">{{ translate('CURP/RFC Certificate') }}</span>
                                                     <span
                                                         class="opacity-50">{{ translate('Click to view the file') }}</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
                                     <div
                                         class="d-flex-column address-info address-info-2 list-unstyled list-unstyled-py-3">
-
+                                        @if($store->tin)
                                         <div class=" d-flex justify-content-start gap-1">
                                             <span class="text-custom-nowrap text-wrap"><strong class=" text-dark">
                                                     {{ translate('CURP/RFC (SITUACION FISCAL)') }}:
                                                 </strong></span>
                                             <span class="pl-1">{{ $store->tin }}</span>
                                         </div>
+                                        @endif
+                                        @if($store->ine_image ?? null)
+                                        <div class=" d-flex justify-content-start gap-1 mt-2">
+                                            <span class="text-custom-nowrap text-wrap"><strong class=" text-dark">{{ translate('messages.INE_card_front') }}: </strong></span>
+                                            <a href="{{ $store->ine_image_full_url }}" target="_blank" class="pl-1">{{ translate('View document') }}</a>
+                                        </div>
+                                        @endif
+                                        @if($store->ine_back_image ?? null)
+                                        <div class=" d-flex justify-content-start gap-1 mt-2">
+                                            <span class="text-custom-nowrap text-wrap"><strong class=" text-dark">{{ translate('messages.INE_card_back') }}: </strong></span>
+                                            <a href="{{ $store->ine_back_image_full_url }}" target="_blank" class="pl-1">{{ translate('View document') }}</a>
+                                        </div>
+                                        @endif
                                         @if($store->cofepris_document_image ?? null)
                                         <div class=" d-flex justify-content-start gap-1 mt-2">
                                             <span class="text-custom-nowrap text-wrap"><strong class=" text-dark">{{ translate('COFEPRIS Document') }}: </strong></span>
