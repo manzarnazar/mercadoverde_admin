@@ -561,6 +561,38 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-6 col-xxl-6">
+                                    <div class="bg--secondary rounded p-20 single-document-uploaderwrap">
+                                        <div class="d-flex align-items-center gap-1 justify-content-between mb-20">
+                                            <div>
+                                                <h4 class="mb-1 fz--14px">{{ translate('messages.INE_card_front') }}</h4>
+                                                <p class="fz-12px mb-0">{{ translate('jpg, jpeg, png, gif, webp. Less Than 2MB') }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group error-wrapper">
+                                            <input type="file" name="ine_image" class="form-control" accept=".jpg, .jpeg, .png, .gif, .webp">
+                                            @if($store->ine_image ?? null)
+                                                <a href="{{ $store->ine_image_full_url ?? '#' }}" target="_blank" class="mt-2 d-inline-block">{{ translate('View current file') }}</a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-xxl-6">
+                                    <div class="bg--secondary rounded p-20 single-document-uploaderwrap">
+                                        <div class="d-flex align-items-center gap-1 justify-content-between mb-20">
+                                            <div>
+                                                <h4 class="mb-1 fz--14px">{{ translate('messages.INE_card_back') }}</h4>
+                                                <p class="fz-12px mb-0">{{ translate('jpg, jpeg, png, gif, webp. Less Than 2MB') }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group error-wrapper">
+                                            <input type="file" name="ine_back_image" class="form-control" accept=".jpg, .jpeg, .png, .gif, .webp">
+                                            @if($store->ine_back_image ?? null)
+                                                <a href="{{ $store->ine_back_image_full_url ?? '#' }}" target="_blank" class="mt-2 d-inline-block">{{ translate('View current file') }}</a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-12">
                                     <div class="bg--secondary rounded p-20 single-document-uploaderwrap">
                                         <div class="d-flex align-items-center gap-1 justify-content-between mb-20">

@@ -146,6 +146,8 @@ class VendorController extends Controller
             $store->tin_certificate_image = null;
         }
         $store->cofepris_document_image = $request->hasFile('cofepris_document_image') ? Helpers::upload('store/', $request->file('cofepris_document_image')->getClientOriginalExtension(), $request->file('cofepris_document_image')) : null;
+        $store->ine_image = $request->hasFile('ine_image') ? Helpers::upload('store/', $request->file('ine_image')->getClientOriginalExtension(), $request->file('ine_image')) : null;
+        $store->ine_back_image = $request->hasFile('ine_back_image') ? Helpers::upload('store/', $request->file('ine_back_image')->getClientOriginalExtension(), $request->file('ine_back_image')) : null;
         $store->delivery_time = $request->minimum_delivery_time .'-'. $request->maximum_delivery_time.' '.$request->delivery_time_type;
         $store->module_id = Config::get('module.current_module_id');
         try {
@@ -257,6 +259,8 @@ class VendorController extends Controller
         $store->tin_certificate_image = $request->hasFile('tin_certificate_image') ? Helpers::update('store/', $store->tin_certificate_image, $request->file('tin_certificate_image')->getClientOriginalExtension(), $request->file('tin_certificate_image')) : $store->tin_certificate_image;
         $cofeprisExtension = $request->hasFile('cofepris_document_image') ? $request->file('cofepris_document_image')->getClientOriginalExtension() : 'png';
         $store->cofepris_document_image = $request->hasFile('cofepris_document_image') ? Helpers::update('store/', $store->cofepris_document_image ?? '', $cofeprisExtension, $request->file('cofepris_document_image')) : $store->cofepris_document_image;
+        $store->ine_image = $request->hasFile('ine_image') ? Helpers::update('store/', $store->ine_image ?? '', $request->file('ine_image')->getClientOriginalExtension(), $request->file('ine_image')) : $store->ine_image;
+        $store->ine_back_image = $request->hasFile('ine_back_image') ? Helpers::update('store/', $store->ine_back_image ?? '', $request->file('ine_back_image')->getClientOriginalExtension(), $request->file('ine_back_image')) : $store->ine_back_image;
         $store->delivery_time = $request->minimum_delivery_time .'-'. $request->maximum_delivery_time.' '.$request->delivery_time_type;
         $store->save();
 

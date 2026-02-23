@@ -534,6 +534,32 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-4 col-xxl-4">
+                                    <div class="bg--secondary rounded p-20 single-document-uploaderwrap">
+                                        <div class="d-flex align-items-center gap-1 justify-content-between mb-20">
+                                            <div>
+                                                <h4 class="mb-1 fz--14px">{{ translate('messages.INE_card_front') }}</h4>
+                                                <p class="fz-12px mb-0">{{ translate('jpg, jpeg, png, gif, webp. Less Than 2MB') }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group error-wrapper">
+                                            <input type="file" name="ine_image" class="form-control" accept=".jpg, .jpeg, .png, .gif, .webp">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-xxl-4">
+                                    <div class="bg--secondary rounded p-20 single-document-uploaderwrap">
+                                        <div class="d-flex align-items-center gap-1 justify-content-between mb-20">
+                                            <div>
+                                                <h4 class="mb-1 fz--14px">{{ translate('messages.INE_card_back') }}</h4>
+                                                <p class="fz-12px mb-0">{{ translate('jpg, jpeg, png, gif, webp. Less Than 2MB') }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group error-wrapper">
+                                            <input type="file" name="ine_back_image" class="form-control" accept=".jpg, .jpeg, .png, .gif, .webp">
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-12">
                                     <div class="bg--secondary rounded p-20 single-document-uploaderwrap">
                                         <div class="d-flex align-items-center gap-1 justify-content-between mb-20">
