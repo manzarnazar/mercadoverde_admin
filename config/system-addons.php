@@ -32,7 +32,7 @@
     'username' => 'nnmagency',
     'purchase_key' => '620511e5-74f0-48a6-b22e-d1e4bb5496e5',
     'software_id' => 'MzY3NzIxNzM=',
-    'domain' => 'admin.abastos.app',
+    'domain' => 'admin.mercadoverde.app',
     'software_type' => 'addon',
   ),
   'deliveryman_app' => 
@@ -41,7 +41,7 @@
     'username' => 'nnmagency',
     'purchase_key' => '620511e5-74f0-48a6-b22e-d1e4bb5496e5',
     'software_id' => 'MzY3NzIxNDg=',
-    'domain' => 'admin.abastos.app',
+    'domain' => 'admin.mercadoverde.app',
     'software_type' => 'addon',
   ),
   'react_web' => 
