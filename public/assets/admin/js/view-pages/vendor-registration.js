@@ -135,6 +135,14 @@ $("#coverImageUpload").change(function() {
     readURL(this, 'coverImageViewer');
 });
 
+$("#ineFrontImageUpload").change(function() {
+    readURL(this, 'ineFrontImageViewer');
+});
+
+$("#ineBackImageUpload").change(function() {
+    readURL(this, 'ineBackImageViewer');
+});
+
 $(".lang_link").click(function(e){
     e.preventDefault();
     $(".lang_link").removeClass('active');

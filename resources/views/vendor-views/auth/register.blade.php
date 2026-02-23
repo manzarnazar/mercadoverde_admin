@@ -319,6 +319,49 @@
         </div>
         <div class="card __card bg-F8F9FC mb-3">
             <div class="card-header">
+                <h5 class="card-title">{{ translate('messages.INE_card') }}</h5>
+            </div>
+            <div class="card-body p-4">
+                <div class="row g-3">
+                    <div class="col-md-6 col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            <label class="input-label">{{ translate('messages.INE_card_front') }} <small class="text-danger">*</small></label>
+                            <label class="image--border position-relative">
+                                <img class="__register-img" id="ineFrontImageViewer"
+                                    src="{{ asset('public/assets/admin/img/upload-img.png') }}" alt="INE Front" />
+                                <div class="icon-file-group">
+                                    <div class="icon-file">
+                                        <input type="file" name="ine_image" id="ineFrontImageUpload"
+                                            class="form-control __form-control"
+                                            accept=".webp, .jpg, .png, .jpeg, .gif|image/*" required>
+                                        <img src="{{ asset('public/assets/admin/img/pen.png') }}" alt="">
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            <label class="input-label">{{ translate('messages.INE_card_back') }} <small class="text-danger">*</small></label>
+                            <label class="image--border position-relative">
+                                <img class="__register-img" id="ineBackImageViewer"
+                                    src="{{ asset('public/assets/admin/img/upload-img.png') }}" alt="INE Back" />
+                                <div class="icon-file-group">
+                                    <div class="icon-file">
+                                        <input type="file" name="ine_back_image" id="ineBackImageUpload"
+                                            class="form-control __form-control"
+                                            accept=".webp, .jpg, .png, .jpeg, .gif|image/*" required>
+                                        <img src="{{ asset('public/assets/admin/img/pen.png') }}" alt="">
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card __card bg-F8F9FC mb-3">
+            <div class="card-header">
                 <h5 class="card-title">
                     <svg width="20" x="0" y="0" viewBox="0 0 460.8 460.8" class="store-svg-logo" xml:space="preserve">
                         <g>
