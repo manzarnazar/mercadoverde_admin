@@ -373,6 +373,66 @@
                                             </label>
                                         </div>
                                     </div>
+                                    <div class="d-flex flex-column flex-sm-row gap-4 mt-4">
+                                        <div class="form-group flex-grow-1 d-flex flex-column justify-content-between">
+                                            <label class="input-label pt-2 mb-2">
+                                                <div class="lh-1">{{ translate('messages.INE_card_front') }}<span class="text-danger">*</span></div>
+                                                <div class="fs-12 opacity-70">{{ translate(IMAGE_FORMAT.' ' . 'Less Than 2MB') }}</div>
+                                            </label>
+                                            <label class="image--border position-relative h-110 min-w-220">
+                                                <img class="__register-img h-110" id="ineFrontImageViewer"
+                                                     src="{{ asset('public/assets/admin/img/upload-img.png') }}"
+                                                     alt="INE Front" style="display: none"/>
+                                                <div class="upload-file__textbox p-2 h-100">
+                                                    <img width="34" height="34"
+                                                         src="{{ asset('public/assets/admin/img/document-upload.png') }}"
+                                                         alt="" class="svg">
+                                                    <h6 class="mt-2 text-center font-semibold fs-12">
+                                                        <span class="text-info">{{ translate('messages.Click to upload') }}</span>
+                                                        <br>
+                                                        {{ translate('messages.or drag and drop') }}
+                                                    </h6>
+                                                </div>
+                                                <div class="icon-file-group d-none">
+                                                    <div class="icon-file">
+                                                        <input type="file" name="ine_image" id="ineFrontImageUpload"
+                                                               class="form-control __form-control"
+                                                               accept="{{ IMAGE_EXTENSION }}" required>
+                                                        <img src="{{ asset('public/assets/admin/img/pen.png') }}" alt="">
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div class="form-group flex-grow-1 d-flex flex-column justify-content-between">
+                                            <label class="input-label pt-2 mb-2">
+                                                <div class="lh-1">{{ translate('messages.INE_card_back') }}<span class="text-danger">*</span></div>
+                                                <div class="fs-12 opacity-70">{{ translate(IMAGE_FORMAT.' ' . 'Less Than 2MB') }}</div>
+                                            </label>
+                                            <label class="image--border position-relative h-110 min-w-220">
+                                                <img class="__register-img h-110" id="ineBackImageViewer"
+                                                     src="{{ asset('public/assets/admin/img/upload-img.png') }}"
+                                                     alt="INE Back" style="display: none"/>
+                                                <div class="upload-file__textbox p-2 h-100">
+                                                    <img width="34" height="34"
+                                                         src="{{ asset('public/assets/admin/img/document-upload.png') }}"
+                                                         alt="" class="svg">
+                                                    <h6 class="mt-2 text-center font-semibold fs-12">
+                                                        <span class="text-info">{{ translate('messages.Click to upload') }}</span>
+                                                        <br>
+                                                        {{ translate('messages.or drag and drop') }}
+                                                    </h6>
+                                                </div>
+                                                <div class="icon-file-group d-none">
+                                                    <div class="icon-file">
+                                                        <input type="file" name="ine_back_image" id="ineBackImageUpload"
+                                                               class="form-control __form-control"
+                                                               accept="{{ IMAGE_EXTENSION }}" required>
+                                                        <img src="{{ asset('public/assets/admin/img/pen.png') }}" alt="">
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card __card bg-F8F9FC mb-4">
@@ -1045,7 +1105,8 @@
         $('#show-business-plan-div').on('click', function (e) {
             const logo = $('input[name="logo"]')[0];
             const cover = $('input[name="cover_photo"]')[0];
-            const tin_certificate_image = $('input[name="tin_certificate_image"]')[0];
+            const ine_image = $('input[name="ine_image"]')[0];
+            const ine_back_image = $('input[name="ine_back_image"]')[0];
             const cofepris_document_image = $('input[name="cofepris_document_image"]')[0];
 
             const maxFileSize = 2 * 1024 * 1024; // 2MB in bytes
@@ -1062,13 +1123,22 @@
             } else if (!cover.files.length) {
                 toastr.error("{{ translate('Vendor_cover_photo_required') }}");
                 e.preventDefault();
+            } else if (!ine_image.files.length) {
+                toastr.error("{{ translate('messages.INE_card_front') }} {{ translate('messages.is_required') }}");
+                e.preventDefault();
+            } else if (!ine_back_image.files.length) {
+                toastr.error("{{ translate('messages.INE_card_back') }} {{ translate('messages.is_required') }}");
+                e.preventDefault();
             } else if (logo.files[0].size > maxFileSize) {
                 toastr.error("{{ translate('Vendor_logo_must_be_less_than_2MB') }}");
                 e.preventDefault();
-            } else if (tin_certificate_image.files.length && tin_certificate_image.files[0].size > maxFileSize) {
-                toastr.error("{{ translate('CURP_RFC_certificate_must_be_less_than_2MB') }}");
+            } else if (ine_image.files[0].size > maxFileSize) {
+                toastr.error("{{ translate('messages.Image size must be less than 2 MB') }}");
                 e.preventDefault();
-            } else if (cofepris_document_image.files.length && cofepris_document_image.files[0].size > maxFileSize) {
+            } else if (ine_back_image.files[0].size > maxFileSize) {
+                toastr.error("{{ translate('messages.Image size must be less than 2 MB') }}");
+                e.preventDefault();
+            } else if (cofepris_document_image && cofepris_document_image.files.length && cofepris_document_image.files[0].size > maxFileSize) {
                 toastr.error("{{ translate('COFEPRIS_document_must_be_less_than_2MB') }}");
                 e.preventDefault();
             } else if (cover.files[0].size > maxFileSize) {
@@ -1281,6 +1351,18 @@
                 '#customFileEg1',
                 '#logoImageViewer',
                 '#logoImageViewer ~ .upload-file__textbox'
+            );
+
+            handleImageUpload(
+                '#ineFrontImageUpload',
+                '#ineFrontImageViewer',
+                '#ineFrontImageViewer ~ .upload-file__textbox'
+            );
+
+            handleImageUpload(
+                '#ineBackImageUpload',
+                '#ineBackImageViewer',
+                '#ineBackImageViewer ~ .upload-file__textbox'
             );
         });
         // ---- file upload with textbox ends
