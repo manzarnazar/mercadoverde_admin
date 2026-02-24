@@ -564,7 +564,7 @@
                                     <div class="bg--secondary rounded p-20 single-document-uploaderwrap">
                                         <div class="d-flex align-items-center gap-1 justify-content-between mb-20">
                                             <div>
-                                                <h4 class="mb-1 fz--14px">{{ translate('COFEPRIS Document (Health Regulatory Permission)') }}</h4>
+                                                <h4 class="mb-1 fz--14px">{{ translate('COFEPRIS Document (Health Regulatory Permission)') }} <span class="text-muted">({{ translate('Optional') }})</span></h4>
                                                 <p class="fz-12px mb-0">
                                                     {{ translate('pdf, doc, jpg. File size : max 2 MB') }}</p>
                                             </div>

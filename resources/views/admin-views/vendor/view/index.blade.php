@@ -343,7 +343,7 @@
                                         @endif
                                         @if($store->cofepris_document_image ?? null)
                                         <div class=" d-flex justify-content-start gap-1 mt-2">
-                                            <span class="text-custom-nowrap text-wrap"><strong class=" text-dark">{{ translate('COFEPRIS Document') }}: </strong></span>
+                                            <span class="text-custom-nowrap text-wrap"><strong class=" text-dark">{{ translate('COFEPRIS Document') }} <span class="text-muted">({{ translate('Optional') }})</span>: </strong></span>
                                             <a href="{{ $store->cofepris_document_image_full_url }}" target="_blank" class="pl-1">{{ translate('View document') }}</a>
                                         </div>
                                         @endif
