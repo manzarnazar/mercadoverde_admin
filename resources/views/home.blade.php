@@ -24,7 +24,7 @@
     </section>
     <!-- ==== Banner Section Ends Here ==== -->
 
-    <!-- ==== Ecommerce Venture Section Starts Here ==== -->
+    {{-- ==== Ecommerce Venture Section Starts Here ====
     <section class="ecommerce-venture-section">
         <div class="container max-w1060">
             <div class="section-header mb-30 wow fadeInUp">
@@ -74,7 +74,7 @@
             </div>
         </div>
     </section>
-    <!-- ==== Ecommerce Venture Section Ends Here ==== -->
+    ==== Ecommerce Venture Section Ends Here ==== --}}
 
     <!-- ==== Main Category Section Starts Here ==== -->
     @php($promotion_banner = $landing_data['promotional_banners'])
@@ -1924,7 +1924,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-9">
-                        <img class="mw-100"
+                        <img class="mw-100" style="border-radius: 20px;"
                             src="{{ \App\CentralLogics\Helpers::get_full_url('download_user_app_image', isset($landing_data['download_user_app_image']) ? $landing_data['download_user_app_image'] : null, isset($landing_data['download_user_app_image_storage']) ? $landing_data['download_user_app_image_storage'] : 'public') }}"
                             alt="">
                     </div>

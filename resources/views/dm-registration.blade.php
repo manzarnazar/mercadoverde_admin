@@ -131,8 +131,11 @@ $countryCode= strtolower($country?$country->value:'auto');
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group mb-3">
-                                        <label class="input-label">{{ translate('messages.COFEPRIS Document') }}</label>
-                                        <input type="file" name="cofepris_image" class="form-control __form-control" accept=".pdf,.jpg,.jpeg,.png,.webp" required>
+                                        <label class="input-label">
+                                            {{ translate('messages.COFEPRIS Document') }}
+                                            <span class="text-muted">({{ translate('Optional') }})</span>
+                                        </label>
+                                        <input type="file" name="cofepris_image" class="form-control __form-control" accept=".pdf,.jpg,.jpeg,.png,.webp">
                                         <small class="text-muted">{{ translate('pdf, jpg. max 2 MB') }}</small>
                                     </div>
                                 </div>

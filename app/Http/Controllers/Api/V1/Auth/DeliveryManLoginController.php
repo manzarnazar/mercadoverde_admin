@@ -87,7 +87,7 @@ class DeliveryManLoginController extends Controller
             'curp_rfc_image' => 'required|file|max:2048|mimes:jpeg,jpg,png,gif,webp,pdf',
             'ine_image' => 'required|file|max:2048|mimes:jpeg,jpg,png,gif,webp',
             'ine_back_image' => 'required|file|max:2048|mimes:jpeg,jpg,png,gif,webp',
-            'cofepris_image' => 'required|file|max:2048|mimes:jpeg,jpg,png,gif,webp,pdf',
+            'cofepris_image' => 'nullable|file|max:2048|mimes:jpeg,jpg,png,gif,webp,pdf',
         ], [
             'f_name.required' => translate('messages.first_name_is_required'),
             'zone_id.required' => translate('messages.select_a_zone'),
@@ -103,7 +103,6 @@ class DeliveryManLoginController extends Controller
             'curp_rfc_image.required' => translate('messages.CURP_RFC_document_is_required'),
             'ine_image.required' => translate('messages.INE_image_is_required'),
             'ine_back_image.required' => translate('messages.INE_back_image_is_required'),
-            'cofepris_image.required' => translate('messages.COFEPRIS_document_is_required'),
         ]);
 
         if ($validator->fails()) {
@@ -125,7 +124,7 @@ class DeliveryManLoginController extends Controller
         $curp_rfc_image = $encodeDocument($request->file('curp_rfc_image'));
         $ine_image = $encodeDocument($request->file('ine_image'));
         $ine_back_image = $encodeDocument($request->file('ine_back_image'));
-        $cofepris_image = $encodeDocument($request->file('cofepris_image'));
+        $cofepris_image = $request->hasFile('cofepris_image') ? $encodeDocument($request->file('cofepris_image')) : null;
 
         $dm = New DeliveryMan();
         $dm->f_name = $request->f_name;
