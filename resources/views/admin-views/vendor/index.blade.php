@@ -473,76 +473,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12">
-                    <div>
-                        <div class="card p-20">
-                            <div class="mb-20">
-                                <h3 class="mb-1">{{ translate('Business TIN') }}</h3>
-                                {{-- <p class="fz-12px mb-0">{{translate('Lorem ipsum dolor sit amet, consectetur adipiscing elit.')}}</p> --}}
-                            </div>
-                            <div class="row g-3">
-                                <div class="col-md-8 col-xxl-9">
-                                    <div class="bg--secondary rounded p-20 h-100">
-                                        <div class="form-group  error-wrapper">
-                                            <label class="input-label mb-2 d-block title-clr fw-normal"
-                                                for="exampleFormControlInput1">{{ translate('Taxpayer Identification Number(TIN)') }}
-                                            </label>
-                                            <input type="text" name="tin"
-                                                placeholder="{{ translate('Type Your Taxpayer Identification Number(TIN)') }}"
-                                                class="form-control">
-                                        </div>
-                                        <div class="form-group mb-0  error-wrapper">
-                                            <label class="input-label mb-2 d-block title-clr fw-normal"
-                                                for="exampleFormControlInput1">{{ translate('Expire Date') }} </label>
-                                            <input type="date"  name="tin_expire_date" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-xxl-3">
-                                    <div class="bg--secondary rounded p-20 h-100 single-document-uploaderwrap">
-                                        <div class="d-flex align-items-center gap-1 justify-content-between mb-20">
-                                            <div>
-                                                <h4 class="mb-1 fz--14px">{{ translate('TIN Certificate') }}</h4>
-                                                <p class="fz-12px mb-0">
-                                                    {{ translate('pdf, doc, jpg. File size : max 2 MB') }}</p>
-                                            </div>
-                                            <div class="d-flex gap-3 align-items-center">
-                                                <button type="button" id="doc_edit_btn"
-                                                    class="w-30px h-30 rounded d-flex align-items-center justify-content-center btn--primary btn px-3 icon-btn">
-                                                    <i class="tio-edit"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="form-group error-wrapper">
-                                            <div id="file-assets"
-                                                data-picture-icon="{{ asset('public/assets/admin/img/picture.svg') }}"
-                                                data-document-icon="{{ asset('public/assets/admin/img/document.svg') }}"
-                                                data-blank-thumbnail="{{ asset('public/assets/admin/img/picture.svg') }}">
-                                            </div>
-                                            <!-- Upload box -->
-                                            <div class="d-flex justify-content-center mb-2" id="pdf-container">
-                                                <div class="document-upload-wrapper" id="doc-upload-wrapper">
-                                                    <input type="file" name="tin_certificate_image"
-                                                        class="document_input" accept=".doc, .pdf, .jpg, .png, .jpeg"
-                                                        data-max-size="2mb">
-                                                    <div class="textbox">
-                                                        <img width="40" height="40" class="svg"
-                                                            src="{{ asset('public/assets/admin/img/doc-uploaded.png') }}"
-                                                            alt="">
-                                                        <p class="fs-12 mb-0">
-                                                            {{ translate('messages.Select_a_file_or') }} <span
-                                                                class="font-semibold">{{ translate('messages.Drag & Drop') }}</span>
-                                                            {{ translate('messages.here') }}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @include('admin-views.vendor.partials._identity-info-form')
                 <div class="col-lg-12">
                     <div class="btn--container justify-content-end">
                         <button type="reset" id="reset_btn"
@@ -560,7 +491,7 @@
 @push('script_2')
     <script src="{{ asset('public/assets/admin/js/file-preview/pdf.min.js') }}"></script>
     <script src="{{ asset('public/assets/admin/js/file-preview/pdf-worker.min.js') }}"></script>
-    <script src="{{ asset('public/assets/admin/js/file-preview/add-multiple-document-upload.js') }}"></script>
+    <script src="{{ asset('public/assets/admin/js/file-preview/identity-document-upload.js') }}"></script>
 
     <script src="{{ asset('public/assets/admin/js/spartan-multi-image-picker.js') }}"></script>
     <script
