@@ -506,6 +506,7 @@
                 </div>
             </div>
 
+            @include('admin-views.vendor.partials._identity-info-view', ['showAllFields' => true])
 
         @endif
 
