@@ -143,7 +143,6 @@ class Store extends Model
         'tin',
         'tin_expire_date',
         'tin_certificate_image',
-        'cofepris_document_image',
         'ine_image',
         'ine_back_image',
     ];
@@ -193,7 +192,7 @@ class Store extends Model
     /**
      * @var string[]
      */
-    protected $appends = ['gst_status','gst_code','logo_full_url','cover_photo_full_url','meta_image_full_url','tin_certificate_image_full_url','cofepris_document_image_full_url','ine_image_full_url','ine_back_image_full_url'];
+    protected $appends = ['gst_status','gst_code','logo_full_url','cover_photo_full_url','meta_image_full_url','tin_certificate_image_full_url','ine_image_full_url','ine_back_image_full_url'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -315,18 +314,6 @@ class Store extends Model
         if (count($this->storage) > 0) {
             foreach ($this->storage as $storage) {
                 if ($storage['key'] == 'tin_certificate_image') {
-                    return Helpers::get_full_url('store',$value,$storage['value']);
-                }
-            }
-        }
-
-        return Helpers::get_full_url('store',$value,'public');
-    }
-    public function getCofeprisDocumentImageFullUrlAttribute(){
-        $value = $this->cofepris_document_image;
-        if (count($this->storage) > 0) {
-            foreach ($this->storage as $storage) {
-                if ($storage['key'] == 'cofepris_document_image') {
                     return Helpers::get_full_url('store',$value,$storage['value']);
                 }
             }
