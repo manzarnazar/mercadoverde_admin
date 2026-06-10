@@ -540,6 +540,32 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row g-3 mt-1">
+                                <div class="col-md-6">
+                                    <div class="bg--secondary rounded p-20 h-100">
+                                        <div class="form-group mb-0 error-wrapper">
+                                            <label class="input-label mb-2 d-block title-clr fw-normal">
+                                                {{ translate('messages.INE_Card_Front') }}
+                                            </label>
+                                            <p class="fz-12px mb-2">{{ translate('messages.ine_image_format') }}</p>
+                                            <input type="file" name="ine_image" class="form-control"
+                                                accept=".jpg,.jpeg,.png,.gif,.webp" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="bg--secondary rounded p-20 h-100">
+                                        <div class="form-group mb-0 error-wrapper">
+                                            <label class="input-label mb-2 d-block title-clr fw-normal">
+                                                {{ translate('messages.INE_Card_Back') }}
+                                            </label>
+                                            <p class="fz-12px mb-2">{{ translate('messages.ine_image_format') }}</p>
+                                            <input type="file" name="ine_back_image" class="form-control"
+                                                accept=".jpg,.jpeg,.png,.gif,.webp" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

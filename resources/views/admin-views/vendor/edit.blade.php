@@ -568,6 +568,50 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row g-3 mt-1">
+                                <div class="col-md-6">
+                                    <div class="bg--secondary rounded p-20 h-100">
+                                        <div class="form-group mb-0 error-wrapper">
+                                            <label class="input-label mb-2 d-block title-clr fw-normal">
+                                                {{ translate('messages.INE_Card_Front') }}
+                                            </label>
+                                            <p class="fz-12px mb-2">{{ translate('messages.ine_image_format') }}</p>
+                                            @if ($store->ine_image)
+                                                <div class="mb-2">
+                                                    <a href="{{ $store->ine_image_full_url }}" target="_blank">
+                                                        <img src="{{ $store->ine_image_full_url }}" alt="INE Front"
+                                                            class="rounded" style="max-height: 120px; max-width: 100%;">
+                                                    </a>
+                                                </div>
+                                            @endif
+                                            <input type="file" name="ine_image" class="form-control"
+                                                accept=".jpg,.jpeg,.png,.gif,.webp"
+                                                {{ $store->ine_image ? '' : 'required' }}>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="bg--secondary rounded p-20 h-100">
+                                        <div class="form-group mb-0 error-wrapper">
+                                            <label class="input-label mb-2 d-block title-clr fw-normal">
+                                                {{ translate('messages.INE_Card_Back') }}
+                                            </label>
+                                            <p class="fz-12px mb-2">{{ translate('messages.ine_image_format') }}</p>
+                                            @if ($store->ine_back_image)
+                                                <div class="mb-2">
+                                                    <a href="{{ $store->ine_back_image_full_url }}" target="_blank">
+                                                        <img src="{{ $store->ine_back_image_full_url }}" alt="INE Back"
+                                                            class="rounded" style="max-height: 120px; max-width: 100%;">
+                                                    </a>
+                                                </div>
+                                            @endif
+                                            <input type="file" name="ine_back_image" class="form-control"
+                                                accept=".jpg,.jpeg,.png,.gif,.webp"
+                                                {{ $store->ine_back_image ? '' : 'required' }}>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

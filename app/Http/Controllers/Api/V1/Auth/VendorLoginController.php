@@ -149,6 +149,8 @@ class VendorLoginController extends Controller
             'module_id' => 'required',
             'logo' => 'required|image|max:2048|mimes:'.IMAGE_FORMAT_FOR_VALIDATION,
             'cover_photo' => 'nullable|image|max:2048|mimes:'.IMAGE_FORMAT_FOR_VALIDATION,
+            'ine_image' => 'required|image|max:2048|mimes:jpeg,jpg,png,gif,webp',
+            'ine_back_image' => 'required|image|max:2048|mimes:jpeg,jpg,png,gif,webp',
         ],[
             'password.required' => translate('The password is required'),
             'password.min_length' => translate('The password must be at least :min characters long'),
@@ -210,6 +212,10 @@ class VendorLoginController extends Controller
         $store->tin_expire_date = $request->tin_expire_date == 'null' ? null : $request->tin_expire_date;
         $extension = $request->file('tin_certificate_image') ? $request->file('tin_certificate_image')->getClientOriginalExtension() : 'png';
         $store->tin_certificate_image = Helpers::upload('store/', $extension, $request->file('tin_certificate_image'));
+        $ineExtension = $request->file('ine_image')->getClientOriginalExtension();
+        $store->ine_image = Helpers::upload('store/', $ineExtension, $request->file('ine_image'));
+        $ineBackExtension = $request->file('ine_back_image')->getClientOriginalExtension();
+        $store->ine_back_image = Helpers::upload('store/', $ineBackExtension, $request->file('ine_back_image'));
         $store->delivery_time = $request->minimum_delivery_time .'-'. $request->maximum_delivery_time.' '.$request->delivery_time_type;
         $store->module_id = $request->module_id;
         $store->status = 0;

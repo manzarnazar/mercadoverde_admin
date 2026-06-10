@@ -273,7 +273,7 @@
                 </div>
             </div>
 
-            @if ($store->tin)
+            @if ($store->tin || $store->ine_image || $store->ine_back_image)
                 <div class="row pt-3 g-3">
                     <div class="col-12">
                         <div class="card h-100">
@@ -335,6 +335,28 @@
                                     </div>
 
                                 </div>
+                                @if ($store->ine_image || $store->ine_back_image)
+                                    <div class="row g-3 mt-3">
+                                        @if ($store->ine_image)
+                                            <div class="col-md-6">
+                                                <strong class="text-dark d-block mb-2">{{ translate('messages.INE_Card_Front') }}</strong>
+                                                <a href="{{ $store->ine_image_full_url }}" target="_blank">
+                                                    <img src="{{ $store->ine_image_full_url }}" alt="INE Front"
+                                                        class="rounded" style="max-height: 200px; max-width: 100%;">
+                                                </a>
+                                            </div>
+                                        @endif
+                                        @if ($store->ine_back_image)
+                                            <div class="col-md-6">
+                                                <strong class="text-dark d-block mb-2">{{ translate('messages.INE_Card_Back') }}</strong>
+                                                <a href="{{ $store->ine_back_image_full_url }}" target="_blank">
+                                                    <img src="{{ $store->ine_back_image_full_url }}" alt="INE Back"
+                                                        class="rounded" style="max-height: 200px; max-width: 100%;">
+                                                </a>
+                                            </div>
+                                        @endif
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
