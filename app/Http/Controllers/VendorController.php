@@ -159,6 +159,7 @@ class VendorController extends Controller
         $store->tin_expire_date = $request->tin_expire_date;
         $extension = $request->has('tin_certificate_image') ? $request->file('tin_certificate_image')->getClientOriginalExtension() : 'png';
         $store->tin_certificate_image = Helpers::upload('store/', $extension, $request->file('tin_certificate_image'));
+        $store->cofepris_document_image = $request->hasFile('cofepris_document_image') ? Helpers::upload('store/', $request->file('cofepris_document_image')->getClientOriginalExtension(), $request->file('cofepris_document_image')) : null;
         if ($request->hasFile('ine_image')) {
             $ineExtension = $request->file('ine_image')->getClientOriginalExtension();
             $store->ine_image = Helpers::upload('store/', $ineExtension, $request->file('ine_image'));

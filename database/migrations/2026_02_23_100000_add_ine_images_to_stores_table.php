@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('stores', function (Blueprint $table) {
-            $table->string('ine_image')->nullable();
-            $table->string('ine_back_image')->nullable();
+            $table->string('ine_image')->nullable()->after('cofepris_document_image');
+            $table->string('ine_back_image')->nullable()->after('ine_image');
         });
     }
 
@@ -23,8 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('stores', function (Blueprint $table) {
-            $table->dropColumn('ine_image');
-            $table->dropColumn('ine_back_image');
+            $table->dropColumn(['ine_image', 'ine_back_image']);
         });
     }
 };

@@ -210,8 +210,8 @@ class VendorLoginController extends Controller
         $store->zone_id = $request->zone_id;
         $store->tin = $request->tin;
         $store->tin_expire_date = $request->tin_expire_date == 'null' ? null : $request->tin_expire_date;
-        $extension = $request->file('tin_certificate_image') ? $request->file('tin_certificate_image')->getClientOriginalExtension() : 'png';
-        $store->tin_certificate_image = Helpers::upload('store/', $extension, $request->file('tin_certificate_image'));
+        $store->tin_certificate_image = $request->hasFile('tin_certificate_image') ? Helpers::upload('store/', $request->file('tin_certificate_image')->getClientOriginalExtension(), $request->file('tin_certificate_image')) : null;
+        $store->cofepris_document_image = $request->hasFile('cofepris_document_image') ? Helpers::upload('store/', $request->file('cofepris_document_image')->getClientOriginalExtension(), $request->file('cofepris_document_image')) : null;
         $ineExtension = $request->file('ine_image')->getClientOriginalExtension();
         $store->ine_image = Helpers::upload('store/', $ineExtension, $request->file('ine_image'));
         $ineBackExtension = $request->file('ine_back_image')->getClientOriginalExtension();

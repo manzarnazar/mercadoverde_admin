@@ -143,6 +143,7 @@ class VendorController extends Controller
         $store->tin_expire_date = $request->tin_expire_date;
         $extension = $request->has('tin_certificate_image') ? $request->file('tin_certificate_image')->getClientOriginalExtension() : 'png';
         $store->tin_certificate_image = Helpers::upload('store/', $extension, $request->file('tin_certificate_image'));
+        $store->cofepris_document_image = $request->hasFile('cofepris_document_image') ? Helpers::upload('store/', $request->file('cofepris_document_image')->getClientOriginalExtension(), $request->file('cofepris_document_image')) : null;
         $ineExtension = $request->file('ine_image')->getClientOriginalExtension();
         $store->ine_image = Helpers::upload('store/', $ineExtension, $request->file('ine_image'));
         $ineBackExtension = $request->file('ine_back_image')->getClientOriginalExtension();
@@ -267,6 +268,8 @@ class VendorController extends Controller
         $store->tin_expire_date = $request->tin_expire_date;
         $extension = $request->has('tin_certificate_image') ? $request->file('tin_certificate_image')->getClientOriginalExtension() : 'png';
         $store->tin_certificate_image = $request->has('tin_certificate_image') ? Helpers::update('store/', $store->tin_certificate_image, $extension, $request->file('tin_certificate_image')) : $store->tin_certificate_image;
+        $cofeprisExtension = $request->hasFile('cofepris_document_image') ? $request->file('cofepris_document_image')->getClientOriginalExtension() : 'png';
+        $store->cofepris_document_image = $request->hasFile('cofepris_document_image') ? Helpers::update('store/', $store->cofepris_document_image ?? '', $cofeprisExtension, $request->file('cofepris_document_image')) : $store->cofepris_document_image;
         if ($request->hasFile('ine_image')) {
             $ineExtension = $request->file('ine_image')->getClientOriginalExtension();
             $store->ine_image = Helpers::update('store/', $store->ine_image, $ineExtension, $request->file('ine_image'));
