@@ -84,8 +84,6 @@ class VendorController extends Controller
             'zone_id' => 'required',
             'logo' => 'required|image|max:2048|mimes:'.IMAGE_FORMAT_FOR_VALIDATION,
             'cover_photo' => 'nullable|image|max:2048|mimes:'.IMAGE_FORMAT_FOR_VALIDATION,
-            'ine_image' => 'required|image|max:2048|mimes:jpeg,jpg,png,gif,webp',
-            'ine_back_image' => 'required|image|max:2048|mimes:jpeg,jpg,png,gif,webp',
 
         ], [
             'f_name.required' => translate('messages.first_name_is_required'),
@@ -143,10 +141,6 @@ class VendorController extends Controller
         $store->tin_expire_date = $request->tin_expire_date;
         $extension = $request->has('tin_certificate_image') ? $request->file('tin_certificate_image')->getClientOriginalExtension() : 'png';
         $store->tin_certificate_image = Helpers::upload('store/', $extension, $request->file('tin_certificate_image'));
-        $ineExtension = $request->file('ine_image')->getClientOriginalExtension();
-        $store->ine_image = Helpers::upload('store/', $ineExtension, $request->file('ine_image'));
-        $ineBackExtension = $request->file('ine_back_image')->getClientOriginalExtension();
-        $store->ine_back_image = Helpers::upload('store/', $ineBackExtension, $request->file('ine_back_image'));
         $store->delivery_time = $request->minimum_delivery_time .'-'. $request->maximum_delivery_time.' '.$request->delivery_time_type;
         $store->module_id = Config::get('module.current_module_id');
         try {
@@ -203,8 +197,6 @@ class VendorController extends Controller
             'delivery_time_type'=>'required',
             'logo' => 'nullable|image|max:2048|mimes:'.IMAGE_FORMAT_FOR_VALIDATION,
             'cover_photo' => 'nullable|image|max:2048|mimes:'.IMAGE_FORMAT_FOR_VALIDATION,
-            'ine_image' => 'nullable|image|max:2048|mimes:jpeg,jpg,png,gif,webp',
-            'ine_back_image' => 'nullable|image|max:2048|mimes:jpeg,jpg,png,gif,webp',
         ], [
             'f_name.required' => translate('messages.first_name_is_required'),
             'name.0.required'=>translate('default_name_is_required'),
@@ -235,14 +227,6 @@ class VendorController extends Controller
             }
         }
 
-        if (!$store->ine_image && !$request->hasFile('ine_image')) {
-            $validator->getMessageBag()->add('ine_image', translate('messages.INE_front_image_is_required'));
-            return response()->json(['errors' => Helpers::error_processor($validator)]);
-        }
-        if (!$store->ine_back_image && !$request->hasFile('ine_back_image')) {
-            $validator->getMessageBag()->add('ine_back_image', translate('messages.INE_back_image_is_required'));
-            return response()->json(['errors' => Helpers::error_processor($validator)]);
-        }
 
         $vendor = Vendor::findOrFail($store->vendor->id);
         $vendor->f_name = $request->f_name;
@@ -267,14 +251,6 @@ class VendorController extends Controller
         $store->tin_expire_date = $request->tin_expire_date;
         $extension = $request->has('tin_certificate_image') ? $request->file('tin_certificate_image')->getClientOriginalExtension() : 'png';
         $store->tin_certificate_image = $request->has('tin_certificate_image') ? Helpers::update('store/', $store->tin_certificate_image, $extension, $request->file('tin_certificate_image')) : $store->tin_certificate_image;
-        if ($request->hasFile('ine_image')) {
-            $ineExtension = $request->file('ine_image')->getClientOriginalExtension();
-            $store->ine_image = Helpers::update('store/', $store->ine_image, $ineExtension, $request->file('ine_image'));
-        }
-        if ($request->hasFile('ine_back_image')) {
-            $ineBackExtension = $request->file('ine_back_image')->getClientOriginalExtension();
-            $store->ine_back_image = Helpers::update('store/', $store->ine_back_image, $ineBackExtension, $request->file('ine_back_image'));
-        }
         $store->delivery_time = $request->minimum_delivery_time .'-'. $request->maximum_delivery_time.' '.$request->delivery_time_type;
         $store->save();
 

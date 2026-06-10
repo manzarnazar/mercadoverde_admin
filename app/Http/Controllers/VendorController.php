@@ -159,14 +159,6 @@ class VendorController extends Controller
         $store->tin_expire_date = $request->tin_expire_date;
         $extension = $request->has('tin_certificate_image') ? $request->file('tin_certificate_image')->getClientOriginalExtension() : 'png';
         $store->tin_certificate_image = Helpers::upload('store/', $extension, $request->file('tin_certificate_image'));
-        if ($request->hasFile('ine_image')) {
-            $ineExtension = $request->file('ine_image')->getClientOriginalExtension();
-            $store->ine_image = Helpers::upload('store/', $ineExtension, $request->file('ine_image'));
-        }
-        if ($request->hasFile('ine_back_image')) {
-            $ineBackExtension = $request->file('ine_back_image')->getClientOriginalExtension();
-            $store->ine_back_image = Helpers::upload('store/', $ineBackExtension, $request->file('ine_back_image'));
-        }
         $store->delivery_time = $request->minimum_delivery_time .'-'. $request->maximum_delivery_time.' '.$request->delivery_time_type;
         $store->status = 0;
         $store->store_business_model = 'none';
