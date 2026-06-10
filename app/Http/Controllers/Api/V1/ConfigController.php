@@ -201,15 +201,18 @@ class ConfigController extends Controller
         $module = Cache::rememberForever('module_config', function () {
             return Module::active()->count() == 1 ? Module::active()->first() : null;
         });
+        $system_languages = Helpers::get_business_settings('system_language');
+        $defaultLanguage = collect($system_languages)->firstWhere('default', true);
+        $defaultLanguageCode = $defaultLanguage['code'] ?? 'en';
         $languages = Helpers::get_business_settings('language');
         $lang_array = [];
         foreach ($languages as $language) {
             array_push($lang_array, [
                 'key' => $language,
                 'value' => Helpers::get_language_name($language),
+                'default' => $language == $defaultLanguageCode,
             ]);
         }
-        $system_languages = Helpers::get_business_settings('system_language');
         $sys_lang_array = [];
         foreach ($system_languages as $language) {
             array_push($sys_lang_array, [
