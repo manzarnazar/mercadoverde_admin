@@ -320,8 +320,7 @@
 @endsection
 
 @push('script_2')
-{{-- zone-map-v2 --}}
-@include('admin-views.zone.partials._zone-map-drawing-script')
+<script src="{{ asset('public/assets/admin/js/view-pages/zone-map-drawing.js') }}"></script>
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key={{\App\Models\BusinessSetting::where('key', 'map_api_key')->first()->value}}&callback=initialize&libraries=places&loading=async"></script>
 <script>
