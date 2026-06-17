@@ -4515,6 +4515,11 @@ class Helpers
         return false;
     }
 
+    public static function getCoordinatesZone($lat, $lng)
+    {
+        return Zone::whereContains('coordinates', new Point($lat, $lng, POINT_SRID))->where('status', 1)->first();
+    }
+
 }
 
 
