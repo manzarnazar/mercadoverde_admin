@@ -126,7 +126,10 @@
 
                         <div class="map-warper rounded mt-0">
                             <input id="pac-input" class="controls rounded initial--33" title="{{translate('messages.search_your_location_here')}}" type="text" placeholder="{{translate('messages.search_here')}}"/>
-                            <div id="map-canvas" class="initial--34"></div>
+                            <div id="map-canvas" class="initial--34"
+                                data-zone-lat="{{ trim(explode(' ', $zone->center)[1], 'POINT()') }}"
+                                data-zone-lng="{{ trim(explode(' ', $zone->center)[0], 'POINT()') }}"
+                                data-zone-paths='@json(collect($area["coordinates"])->map(fn ($coords) => ["lat" => $coords[1], "lng" => $coords[0]])->values())'></div>
                         </div>
                     </div>
                 </div>
