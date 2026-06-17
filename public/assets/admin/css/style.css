@@ -5977,13 +5977,15 @@ textarea.form-control.h--45 {
 }
 
 #location_map_canvas #pac-input,
-#map-canvas #pac-input {
+#map-canvas #pac-input,
+.gm-style #pac-input {
     height: 40px;
     border: 1px solid #fbc1c1;
     outline: none;
     box-shadow: none;
     top: 7px !important;
-    transform: translateX(7px);
+    left: 7px !important;
+    transform: none;
     padding-inline-start: 10px;
 }
 
@@ -15850,6 +15852,57 @@ img{
 }
 .map-controler{
     height: 220px;
+}
+
+.zone-map-drawing-controls {
+    display: flex;
+    gap: 4px;
+    margin: 10px 0 4px;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    padding: 4px;
+}
+
+.zone-map-tool-btn {
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 4px;
+    background: #fff;
+    color: #333;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.zone-map-tool-btn:hover,
+.zone-map-tool-btn.active {
+    background: var(--primary-clr, #0177cd);
+    color: #fff;
+}
+
+.zone-map-finish-wrap {
+    margin-bottom: 6px;
+}
+
+.zone-map-finish-btn {
+    display: none;
+    border: 0;
+    border-radius: 4px;
+    background: var(--primary-clr, #0177cd);
+    color: #fff;
+    padding: 6px 14px;
+    font-size: 12px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#map-canvas .zone-map-drawing-controls,
+#map-canvas .zone-map-finish-wrap {
+    transform: translateY(10px);
 }
 
 .btn-theme-dark {
