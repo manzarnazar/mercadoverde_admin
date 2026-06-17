@@ -681,16 +681,16 @@ a[class*="btn--"]:hover {
 }
 
 .map-warper #pac-input {
-    height: 3em;
-    width: -moz-fit-content;
-    width: fit-content;
+    height: 2.5em;
+    width: 260px;
     display: block !important;
     position: absolute;
     top: 10px;
-    left: 10px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 5;
-    min-width: 240px;
-    max-width: calc(100% - 20px);
+    min-width: 220px;
+    max-width: calc(100% - 24px);
     background: #fff;
 }
 
@@ -15865,17 +15865,17 @@ img{
 
 .zone-map-drawing-controls {
     display: flex;
-    gap: 4px;
+    gap: 3px;
     margin: 10px 0 4px;
     background: #fff;
     border-radius: 4px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    padding: 4px;
+    padding: 3px;
 }
 
 .zone-map-tool-btn {
-    width: 36px;
-    height: 36px;
+    width: 30px;
+    height: 30px;
     border: 0;
     border-radius: 4px;
     background: #fff;
@@ -15884,7 +15884,7 @@ img{
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .zone-map-tool-btn:hover,
