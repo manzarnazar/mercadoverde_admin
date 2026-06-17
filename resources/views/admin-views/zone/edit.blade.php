@@ -124,7 +124,7 @@
                         </div>
 
 
-                        <div class="map-warper map-controler rounded mt-0">
+                        <div class="map-warper rounded mt-0">
                             <input id="pac-input" class="controls rounded initial--33" title="{{translate('messages.search_your_location_here')}}" type="text" placeholder="{{translate('messages.search_here')}}"/>
                             <div id="map-canvas" class="initial--34"></div>
                         </div>
@@ -141,8 +141,7 @@
 @endsection
 
 @push('script_2')
-<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key={{\App\Models\BusinessSetting::where('key', 'map_api_key')->first()->value}}&callback=initialize&libraries=drawing,places&v=3.61"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.45.8&key={{\App\Models\BusinessSetting::where('key', 'map_api_key')->first()->value}}&libraries=drawing,places,marker&v=3.61"></script>
 <script>
     "use strict";
     auto_grow();
@@ -159,25 +158,47 @@
     let bounds = new google.maps.LatLngBounds();
     let polygons = [];
 
-    function syncPolygonCoordinates(polygon) {
-        $('#coordinates').val(polygon.getPath().getArray());
-        auto_grow();
-    }
 
-    function bindPolygonPathListeners(polygon) {
-        const path = polygon.getPath();
-        google.maps.event.addListener(path, 'set_at', () => syncPolygonCoordinates(polygon));
-        google.maps.event.addListener(path, 'insert_at', () => syncPolygonCoordinates(polygon));
-        google.maps.event.addListener(path, 'remove_at', () => syncPolygonCoordinates(polygon));
+    function resetMap(controlDiv) {
+        // Set CSS for the control border.
+        const controlUI = document.createElement("div");
+        controlUI.style.backgroundColor = "#fff";
+        controlUI.style.border = "2px solid #fff";
+        controlUI.style.borderRadius = "3px";
+        controlUI.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
+        controlUI.style.cursor = "pointer";
+        controlUI.style.marginTop = "8px";
+        controlUI.style.marginBottom = "22px";
+        controlUI.style.textAlign = "center";
+        controlUI.title = "Reset map";
+        controlDiv.appendChild(controlUI);
+        // Set CSS for the control interior.
+        const controlText = document.createElement("div");
+        controlText.style.color = "rgb(25,25,25)";
+        controlText.style.fontFamily = "Roboto,Arial,sans-serif";
+        controlText.style.fontSize = "10px";
+        controlText.style.lineHeight = "16px";
+        controlText.style.paddingLeft = "2px";
+        controlText.style.paddingRight = "2px";
+        controlText.innerHTML = "X";
+        controlUI.appendChild(controlText);
+        // Setup the click event listeners: simply set the map to Chicago.
+        controlUI.addEventListener("click", () => {
+            lastpolygon.setMap(null);
+            $('#coordinates').val('');
+
+        });
     }
 
     function initialize() {
         let myLatlng = new google.maps.LatLng({{trim(explode(' ',$zone->center)[1], 'POINT()')}}, {{trim(explode(' ',$zone->center)[0], 'POINT()')}});
+        const mapId = "{{ \App\Models\BusinessSetting::where('key', 'map_api_key')->first()->value }}"
 
         let myOptions = {
             zoom: 13,
             center: myLatlng,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapId:mapId
         };
         map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
 
@@ -220,56 +241,82 @@
         drawingManager.setMap(map);
 
         google.maps.event.addListener(drawingManager, "overlaycomplete", function(event) {
-            if(lastpolygon) {
-                lastpolygon.setMap(null);
-            }
-            lastpolygon = event.overlay;
-            syncPolygonCoordinates(lastpolygon);
-            bindPolygonPathListeners(lastpolygon);
+            let newShape = event.overlay;
+            newShape.type = event.type;
         });
 
+        google.maps.event.addListener(drawingManager, "overlaycomplete", function(event) {
+            if(lastpolygon)
+                {
+                    lastpolygon.setMap(null);
+                }
+                $('#coordinates').val(event.overlay.getPath().getArray());
+                lastpolygon = event.overlay;
+                auto_grow();
+        });
+        const resetDiv = document.createElement("div");
+        resetMap(resetDiv, lastpolygon);
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(resetDiv);
+
+        // Create the search box and link it to the UI element.
         const input = document.getElementById("pac-input");
-        const searchBox = new google.maps.places.SearchBox(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-        map.addListener("bounds_changed", () => {
-            searchBox.setBounds(map.getBounds());
-        });
-        let markers = [];
-        searchBox.addListener("places_changed", () => {
-            const places = searchBox.getPlaces();
-
-            if (places.length == 0) {
-            return;
-            }
-            markers.forEach((marker) => {
-            marker.setMap(null);
+            const searchBox = new google.maps.places.SearchBox(input);
+            map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+            // Bias the SearchBox results towards current map's viewport.
+            map.addListener("bounds_changed", () => {
+                searchBox.setBounds(map.getBounds());
             });
-            markers = [];
-            const bounds = new google.maps.LatLngBounds();
-            places.forEach((place) => {
-            if (!place.geometry || !place.geometry.location) {
-                console.log("Returned place contains no geometry");
+            let markers = [];
+            // Listen for the event fired when the user selects a prediction and retrieve
+            // more details for that place.
+            searchBox.addListener("places_changed", () => {
+                const places = searchBox.getPlaces();
+
+                if (places.length == 0) {
                 return;
-            }
-            markers.push(
-                new google.maps.Marker({
-                map,
-                title: place.name,
-                position: place.geometry.location,
-                })
-            );
+                }
+                // Clear out the old markers.
+                markers.forEach((marker) => {
+                marker.setMap(null);
+                });
+                markers = [];
+                // For each place, get the icon, name and location.
+                const bounds = new google.maps.LatLngBounds();
+                places.forEach((place) => {
+                if (!place.geometry || !place.geometry.location) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+                const icon = {
+                    url: place.icon,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(25, 25),
+                };
+                const { AdvancedMarkerElement } = google.maps.marker;
 
-            if (place.geometry.viewport) {
-                bounds.union(place.geometry.viewport);
-            } else {
-                bounds.extend(place.geometry.location);
-            }
+                // Create a marker for each place.
+                markers.push(
+                    new AdvancedMarkerElement({
+                    map,
+                    icon,
+                    title: place.name,
+                    position: place.geometry.location,
+                    })
+                );
+
+                if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+                });
+                map.fitBounds(bounds);
             });
-            map.fitBounds(bounds);
-        });
-
-        set_all_zones();
     }
+    google.maps.event.addDomListener(window, 'load', initialize);
 
     function set_all_zones()
     {
@@ -296,6 +343,7 @@
         });
     }
     $(document).on('ready', function(){
+        set_all_zones();
         $("#zone_form").on('keydown', function(e){
             if (e.keyCode === 13) {
                 e.preventDefault();
