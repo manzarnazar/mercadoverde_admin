@@ -125,15 +125,11 @@
                             <textarea type="text" rows="8" name="coordinates" id="coordinates" class="form-control"
                                 readonly></textarea>
                         </div>
-                        @php($zone_default_location = \App\Models\BusinessSetting::where('key', 'default_location')->first())
-                        @php($zone_default_location = $zone_default_location->value ? json_decode($zone_default_location->value, true) : null)
                         <div class="map-warper map-controler rounded mt-0">
                             <input id="pac-input" class="controls rounded"
                                 title="{{translate('messages.search_your_location_here')}}" type="text"
                                 placeholder="{{translate('messages.search_here')}}" />
-                            <div id="map-canvas" class="rounded"
-                                data-zone-lat="{{ $zone_default_location['lat'] ?? '23.757989' }}"
-                                data-zone-lng="{{ $zone_default_location['lng'] ?? '90.360587' }}"></div>
+                            <div id="map-canvas" class="rounded"></div>
                         </div>
                     </div>
                 </div>
