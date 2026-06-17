@@ -26,7 +26,7 @@ function ZoneMapDrawingInstance(options) {
     this.onCoordinatesChange = options.onCoordinatesChange || null;
 
     this._initMap();
-    this._createDrawingControls();
+    this._createToolbar();
     this._initSearch();
 
     if (this.initialPaths && this.initialPaths.length) {
@@ -54,9 +54,27 @@ ZoneMapDrawingInstance.prototype._initMap = function () {
     });
 };
 
-ZoneMapDrawingInstance.prototype._createDrawingControls = function () {
-    const wrapper = document.createElement("div");
-    wrapper.className = "zone-map-drawing-controls";
+ZoneMapDrawingInstance.prototype._createToolbar = function () {
+    const mapElement = document.getElementById(this.mapElementId);
+    const mapWarper = mapElement ? mapElement.closest(".map-warper") : null;
+    const searchInput = document.getElementById(this.searchInputId);
+
+    if (!mapWarper || !searchInput) {
+        return;
+    }
+
+    let toolbar = mapWarper.querySelector(".zone-map-toolbar");
+    if (!toolbar) {
+        toolbar = document.createElement("div");
+        toolbar.className = "zone-map-toolbar";
+        mapWarper.insertBefore(toolbar, mapElement);
+    }
+
+    searchInput.classList.add("zone-map-search");
+    toolbar.appendChild(searchInput);
+
+    const controls = document.createElement("div");
+    controls.className = "zone-map-drawing-controls";
 
     this.panButton = this._makeControlButton(
         "Hand tool",
@@ -74,22 +92,19 @@ ZoneMapDrawingInstance.prototype._createDrawingControls = function () {
         () => this.clearPolygon()
     );
 
-    wrapper.appendChild(this.panButton);
-    wrapper.appendChild(this.drawButton);
-    wrapper.appendChild(resetButton);
+    controls.appendChild(this.panButton);
+    controls.appendChild(this.drawButton);
+    controls.appendChild(resetButton);
+    toolbar.appendChild(controls);
 
     this.finishButton = document.createElement("button");
     this.finishButton.type = "button";
     this.finishButton.className = "zone-map-finish-btn";
     this.finishButton.textContent = "Finish";
     this.finishButton.addEventListener("click", () => this.finishDrawing());
+    toolbar.appendChild(this.finishButton);
 
-    const finishWrapper = document.createElement("div");
-    finishWrapper.className = "zone-map-finish-wrap";
-    finishWrapper.appendChild(this.finishButton);
-
-    this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(wrapper);
-    this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(finishWrapper);
+    this.toolbar = toolbar;
 };
 
 ZoneMapDrawingInstance.prototype._makeControlButton = function (title, iconClass, onClick) {
