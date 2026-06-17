@@ -321,7 +321,7 @@
 
 @push('script_2')
 <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key={{\App\Models\BusinessSetting::where('key', 'map_api_key')->first()->value}}&callback=initialize&libraries=drawing,places&loading=async&v=3.64"></script>
+    src="https://maps.googleapis.com/maps/api/js?key={{\App\Models\BusinessSetting::where('key', 'map_api_key')->first()->value}}&callback=initialize&libraries=drawing,places,marker&v=3.61"></script>
 <script>
     "use strict";
     $(".popover-wrapper").click(function () {
@@ -435,19 +435,16 @@
         @php($default_location = \App\Models\BusinessSetting::where('key', 'default_location')->first())
         @php($default_location = $default_location->value ? json_decode($default_location->value, true) : 0)
         let myLatlng = { lat: {{$default_location ? $default_location['lat'] : '23.757989'}}, lng: {{$default_location ? $default_location['lng'] : '90.360587'}} };
+        const mapId = "{{ \App\Models\BusinessSetting::where('key', 'map_api_key')->first()->value }}"
 
         let myOptions = {
             zoom: 13,
             center: myLatlng,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapId: mapId
+
         }
         map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
-
-        if (!google.maps.drawing?.DrawingManager) {
-            toastr.error("{{ translate('messages.something_went_wrong') }}: Google Maps drawing tools are unavailable. Please contact support.");
-            return;
-        }
-
         drawingManager = new google.maps.drawing.DrawingManager({
             drawingMode: google.maps.drawing.OverlayType.POLYGON,
             drawingControl: true,
@@ -519,9 +516,11 @@
                     return;
                 }
 
+                const { AdvancedMarkerElement } = google.maps.marker;
+
                 // Create a marker for each place.
                 markers.push(
-                    new google.maps.Marker({
+                    new AdvancedMarkerElement({
                         map,
                         title: place.name,
                         position: place.geometry.location,

@@ -141,8 +141,7 @@
 @endsection
 
 @push('script_2')
-<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key={{\App\Models\BusinessSetting::where('key', 'map_api_key')->first()->value}}&callback=initialize&libraries=drawing,places&loading=async&v=3.64"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.45.8&key={{\App\Models\BusinessSetting::where('key', 'map_api_key')->first()->value}}&libraries=drawing,places,marker&v=3.61"></script>
 <script>
     "use strict";
     auto_grow();
@@ -156,7 +155,7 @@
     let lat_longs = new Array();
     let drawingManager;
     let lastpolygon = null;
-    let bounds;
+    let bounds = new google.maps.LatLngBounds();
     let polygons = [];
 
 
@@ -192,13 +191,14 @@
     }
 
     function initialize() {
-        bounds = new google.maps.LatLngBounds();
         let myLatlng = new google.maps.LatLng({{trim(explode(' ',$zone->center)[1], 'POINT()')}}, {{trim(explode(' ',$zone->center)[0], 'POINT()')}});
+        const mapId = "{{ \App\Models\BusinessSetting::where('key', 'map_api_key')->first()->value }}"
 
         let myOptions = {
             zoom: 13,
             center: myLatlng,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapId:mapId
         };
         map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
 
@@ -226,11 +226,6 @@
             });
         });
 
-
-        if (!google.maps.drawing?.DrawingManager) {
-            toastr.error("{{ translate('messages.something_went_wrong') }}: Google Maps drawing tools are unavailable. Please contact support.");
-            return;
-        }
 
         drawingManager = new google.maps.drawing.DrawingManager({
             drawingMode: google.maps.drawing.OverlayType.POLYGON,
@@ -299,13 +294,15 @@
                     anchor: new google.maps.Point(17, 34),
                     scaledSize: new google.maps.Size(25, 25),
                 };
+                const { AdvancedMarkerElement } = google.maps.marker;
+
                 // Create a marker for each place.
                 markers.push(
-                    new google.maps.Marker({
-                        map,
-                        icon,
-                        title: place.name,
-                        position: place.geometry.location,
+                    new AdvancedMarkerElement({
+                    map,
+                    icon,
+                    title: place.name,
+                    position: place.geometry.location,
                     })
                 );
 
@@ -319,6 +316,7 @@
                 map.fitBounds(bounds);
             });
     }
+    google.maps.event.addDomListener(window, 'load', initialize);
 
     function set_all_zones()
     {
