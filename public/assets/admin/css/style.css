@@ -658,6 +658,7 @@ a[class*="btn--"]:hover {
 .map-warper {
     height: 233px;
     overflow: hidden;
+    position: relative;
 }
 
 @media screen and (min-width: 1450px) {
@@ -683,6 +684,14 @@ a[class*="btn--"]:hover {
     height: 3em;
     width: -moz-fit-content;
     width: fit-content;
+    display: block !important;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 5;
+    min-width: 240px;
+    max-width: calc(100% - 20px);
+    background: #fff;
 }
 
 .card .card-header h5 {

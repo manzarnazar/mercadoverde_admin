@@ -293,49 +293,44 @@ ZoneMapDrawingInstance.prototype._fitBoundsToPaths = function (paths) {
 
 ZoneMapDrawingInstance.prototype._initSearch = function () {
     const input = document.getElementById(this.searchInputId);
-    if (!input || !google.maps.places) {
+    if (!input) {
         return;
     }
 
-    const searchBox = new google.maps.places.SearchBox(input);
-    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    input.style.display = "block";
 
-    this.map.addListener("bounds_changed", () => {
-        searchBox.setBounds(this.map.getBounds());
+    if (!google.maps.places) {
+        console.warn("Google Places library failed to load. Enable Places API for your Maps API key.");
+        return;
+    }
+
+    const autocomplete = new google.maps.places.Autocomplete(input, {
+        fields: ["geometry", "name", "formatted_address"],
     });
+    autocomplete.bindTo("bounds", this.map);
 
-    searchBox.addListener("places_changed", () => {
-        const places = searchBox.getPlaces();
-        if (!places || !places.length) {
+    autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        if (!place.geometry || !place.geometry.location) {
             return;
         }
 
         this.searchMarkers.forEach((marker) => marker.setMap(null));
         this.searchMarkers = [];
 
-        const bounds = new google.maps.LatLngBounds();
-        places.forEach((place) => {
-            if (!place.geometry || !place.geometry.location) {
-                return;
-            }
+        this.searchMarkers.push(
+            new google.maps.Marker({
+                map: this.map,
+                title: place.name || place.formatted_address,
+                position: place.geometry.location,
+            })
+        );
 
-            this.searchMarkers.push(
-                new google.maps.Marker({
-                    map: this.map,
-                    title: place.name,
-                    position: place.geometry.location,
-                })
-            );
-
-            if (place.geometry.viewport) {
-                bounds.union(place.geometry.viewport);
-            } else {
-                bounds.extend(place.geometry.location);
-            }
-        });
-
-        if (!bounds.isEmpty()) {
-            this.map.fitBounds(bounds);
+        if (place.geometry.viewport) {
+            this.map.fitBounds(place.geometry.viewport);
+        } else {
+            this.map.setCenter(place.geometry.location);
+            this.map.setZoom(15);
         }
     });
 };
