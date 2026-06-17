@@ -7542,7 +7542,7 @@ ul.delivery--information-single li:not(:last-child) {
 
 .__nav-module-header {
     border-radius: 5px 5px 0 0;
-    background: linear-gradient(135deg, #006161 0%, #004d4d 100%);
+    background: url(./images/setting-shape.png) no-repeat center center/cover;
     position: relative;
     z-index: 3;
 }
@@ -7622,7 +7622,7 @@ ul.delivery--information-single li:not(:last-child) {
     }
 }
 .__nav-module.style-2 .__nav-module-header {
-    background: linear-gradient(135deg, #009faa 0%, #006161 100%);
+    background: url(./images/module-shape.png) no-repeat center center/cover;
     border: 1px solid rgba(0, 159, 170, 0.2);
     border-bottom: none;
 }
