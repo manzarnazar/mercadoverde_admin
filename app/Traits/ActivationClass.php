@@ -62,6 +62,17 @@ trait ActivationClass
 
     public function getRequestConfig(string|null $username = null, string|null $purchaseKey = null, string|null $softwareId = null, string|null $softwareType = null): array
     {
+        if (empty(trim((string)$username)) && empty(trim((string)$purchaseKey))) {
+            return [
+                "active" => 1,
+                "username" => '',
+                "purchase_key" => '',
+                "software_id" => $softwareId ?? SOFTWARE_ID,
+                "domain" => $this->getDomain(),
+                "software_type" => $softwareType,
+            ];
+        }
+
         $activeStatus = base64_encode(1);
         if(!$this->is_local()) {
             try {

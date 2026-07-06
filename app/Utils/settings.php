@@ -67,7 +67,7 @@ if (!function_exists('getWebConfig')) {
     if (!function_exists('showDemoModeInputValue')) {
         function showDemoModeInputValue($value = null): string
         {
-            return env('APP_MODE') != 'demo' ? $value : '';
+            return env('APP_MODE') != 'demo' ? (string)($value ?? '') : '';
         }
     }
 }

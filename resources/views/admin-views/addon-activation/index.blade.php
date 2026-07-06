@@ -31,7 +31,8 @@
                             <p class="fz-12 text-c mb-1">{{ translate('With_this_app_your_vendor_will_mange_their_business_through_mobile_app') }}</p>
                         </div>
                         @php($addon_activation_vendor_app = \App\Models\BusinessSetting::where('key', 'addon_activation_vendor_app')->first())
-                        @php($addon_activation_vendor_app = $addon_activation_vendor_app?->value ? json_decode($addon_activation_vendor_app->value, true) : ['activation_status' => 0, 'username' => '', 'purchase_key' => ''])
+                        @php($addon_activation_vendor_app = $addon_activation_vendor_app?->value ? json_decode($addon_activation_vendor_app->value, true) : null)
+                        @php($addon_activation_vendor_app = is_array($addon_activation_vendor_app) ? $addon_activation_vendor_app : ['activation_status' => 0, 'username' => '', 'purchase_key' => ''])
                         <div class="col-xxl-4 col-md-6">
                             <div class="d-flex flex-sm-nowrap flex-wrap justify-content-end justify-content-end align-items-center gap-sm-3 gap-2">
                                 <div class="view-btn order-sm-0 order-3 fz--14px text-primary cursor-pointer text-decoration-underline font-semibold d-flex align-items-center gap-1">
@@ -69,23 +70,23 @@
                                 <div class="col-md-6 col-lg-6">
                                     <div class="">
                                         <label class="mb-2 d-flex align-items-center gap-1 fz--14px">
-                                            {{ translate('messages.codcanyon_user_name') }} <span class="text-danger">*</span>
+                                            {{ translate('messages.codcanyon_user_name') }}
                                             <i class="tio-info fz--14px secondary-clr" data-toggle="tooltip" data-bs-placement="top" title="{{ translate('messages.codcanyon_user_name') }} ...."></i>
                                         </label>
-                                        <input type="text" value="{{ showDemoModeInputValue(value: $addon_activation_vendor_app['username']) }}"
+                                        <input type="text" value="{{ showDemoModeInputValue(value: $addon_activation_vendor_app['username'] ?? '') }}"
                                                         placeholder="{{ translate('ex') }}: {{ 'Miler' }}"
-                                                        name="username" class="form-control" required>
+                                                        name="username" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-6">
                                     <div class="">
                                         <label class="mb-2 d-flex align-items-center gap-1 fz--14px">
-                                            {{ translate('messages.codcanyon_purchase_code') }} <span class="text-danger">*</span>
+                                            {{ translate('messages.codcanyon_purchase_code') }}
                                             <i class="tio-info fz--14px secondary-clr" data-toggle="tooltip" data-bs-placement="top" title="{{ translate('messages.codcanyon_purchase_code') }} ...."></i>
                                         </label>
-                                        <input type="text" value="{{ showDemoModeInputValue(value: $addon_activation_vendor_app['purchase_key']) }}"
+                                        <input type="text" value="{{ showDemoModeInputValue(value: $addon_activation_vendor_app['purchase_key'] ?? '') }}"
                                                         placeholder="{{ translate('ex') }}: {{ 'CAWFRWRAAWRCAWRA' }}"
-                                                        name="purchase_key" class="form-control" required>
+                                                        name="purchase_key" class="form-control">
                                     </div>
                                 </div>
                             </div>                   
@@ -112,7 +113,8 @@
                             <p class="fz-12 text-c mb-1">{{ translate('with_this_app_your_all_your_deliveryman_will_mange_their_orders_through_mobile_app') }}</p>
                         </div>
                         @php($addon_activation_delivery_man_app = \App\Models\BusinessSetting::where('key', 'addon_activation_delivery_man_app')->first())
-                        @php($addon_activation_delivery_man_app = $addon_activation_delivery_man_app?->value ? json_decode($addon_activation_delivery_man_app->value, true) : ['activation_status' => 0, 'username' => '', 'purchase_key' => ''])
+                        @php($addon_activation_delivery_man_app = $addon_activation_delivery_man_app?->value ? json_decode($addon_activation_delivery_man_app->value, true) : null)
+                        @php($addon_activation_delivery_man_app = is_array($addon_activation_delivery_man_app) ? $addon_activation_delivery_man_app : ['activation_status' => 0, 'username' => '', 'purchase_key' => ''])
                         <div class="col-xxl-4 col-md-6">
                             <div class="d-flex flex-sm-nowrap flex-wrap justify-content-end justify-content-end align-items-center gap-sm-3 gap-2">
                                 <div class="view-btn order-sm-0 order-3 fz--14px text-primary cursor-pointer text-decoration-underline font-semibold d-flex align-items-center gap-1">
@@ -150,23 +152,23 @@
                                 <div class="col-md-6 col-lg-6">
                                     <div class="">
                                         <label class="mb-2 d-flex align-items-center gap-1 fz--14px">
-                                            {{ translate('messages.codcanyon_user_name') }} <span class="text-danger">*</span>
+                                            {{ translate('messages.codcanyon_user_name') }}
                                             <i class="tio-info fz--14px secondary-clr" data-toggle="tooltip" data-bs-placement="top" title="{{ translate('messages.codcanyon_user_name') }} ...."></i>
                                         </label>
-                                        <input type="text" value="{{ showDemoModeInputValue(value: $addon_activation_delivery_man_app['username']) }}"
+                                        <input type="text" value="{{ showDemoModeInputValue(value: $addon_activation_delivery_man_app['username'] ?? '') }}"
                                                         placeholder="{{ translate('ex') }}: {{ 'Miler' }}"
-                                                        name="username" class="form-control" required>
+                                                        name="username" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-6">
                                     <div class="">
                                         <label class="mb-2 d-flex align-items-center gap-1 fz--14px">
-                                            {{ translate('messages.codcanyon_purchase_code') }} <span class="text-danger">*</span>
+                                            {{ translate('messages.codcanyon_purchase_code') }}
                                             <i class="tio-info fz--14px secondary-clr" data-toggle="tooltip" data-bs-placement="top" title="{{ translate('messages.codcanyon_purchase_code') }} ...."></i>
                                         </label>
-                                        <input type="text" value="{{ showDemoModeInputValue(value: $addon_activation_delivery_man_app['purchase_key']) }}"
+                                        <input type="text" value="{{ showDemoModeInputValue(value: $addon_activation_delivery_man_app['purchase_key'] ?? '') }}"
                                                         placeholder="{{ translate('ex') }}: {{ 'CAWFRWRAAWRCAWRA' }}"
-                                                        name="purchase_key" class="form-control" required>
+                                                        name="purchase_key" class="form-control">
                                     </div>
                                 </div>
                             </div>                   
@@ -193,7 +195,8 @@
                             <p class="fz-12 text-c mb-1">{{ translate('with_this_react_website_your_customers_will_experience_your_system_in_a_more_attractive_and_seamless_way') }}</p>
                         </div>
                         @php($addon_activation_react = \App\Models\BusinessSetting::where('key', 'addon_activation_react')->first())
-                        @php($addon_activation_react = $addon_activation_react?->value ? json_decode($addon_activation_react->value, true) : ['activation_status' => 0, 'username' => '', 'purchase_key' => ''])
+                        @php($addon_activation_react = $addon_activation_react?->value ? json_decode($addon_activation_react->value, true) : null)
+                        @php($addon_activation_react = is_array($addon_activation_react) ? $addon_activation_react : ['activation_status' => 0, 'username' => '', 'purchase_key' => ''])
                         <div class="col-xxl-4 col-md-6">
                             <div class="d-flex flex-sm-nowrap flex-wrap justify-content-end justify-content-end align-items-center gap-sm-3 gap-2">
                                 <div class="view-btn order-sm-0 order-3 fz--14px text-primary cursor-pointer text-decoration-underline font-semibold d-flex align-items-center gap-1">
@@ -231,23 +234,23 @@
                                 <div class="col-md-6 col-lg-6">
                                     <div class="">
                                         <label class="mb-2 d-flex align-items-center gap-1 fz--14px">
-                                            {{ translate('messages.codcanyon_user_name') }} <span class="text-danger">*</span>
+                                            {{ translate('messages.codcanyon_user_name') }}
                                             <i class="tio-info fz--14px secondary-clr" data-toggle="tooltip" data-bs-placement="top" title="{{ translate('messages.codcanyon_user_name') }} ...."></i>
                                         </label>
-                                        <input type="text" value="{{ showDemoModeInputValue(value: $addon_activation_react['username']) }}"
+                                        <input type="text" value="{{ showDemoModeInputValue(value: $addon_activation_react['username'] ?? '') }}"
                                                         placeholder="{{ translate('ex') }}: {{ 'Miler' }}"
-                                                        name="username" class="form-control" required>
+                                                        name="username" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-6">
                                     <div class="">
                                         <label class="mb-2 d-flex align-items-center gap-1 fz--14px">
-                                            {{ translate('messages.codcanyon_purchase_code') }} <span class="text-danger">*</span>
+                                            {{ translate('messages.codcanyon_purchase_code') }}
                                             <i class="tio-info fz--14px secondary-clr" data-toggle="tooltip" data-bs-placement="top" title="{{ translate('messages.codcanyon_purchase_code') }} ...."></i>
                                         </label>
-                                        <input type="text" value="{{ showDemoModeInputValue(value: $addon_activation_react['purchase_key']) }}"
+                                        <input type="text" value="{{ showDemoModeInputValue(value: $addon_activation_react['purchase_key'] ?? '') }}"
                                                         placeholder="{{ translate('ex') }}: {{ 'CAWFRWRAAWRCAWRA' }}"
-                                                        name="purchase_key" class="form-control" required>
+                                                        name="purchase_key" class="form-control">
                                     </div>
                                 </div>
                             </div>                   

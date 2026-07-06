@@ -31,8 +31,8 @@ class AddonActivationController extends Controller
             Helpers::businessUpdateOrInsert(['key' => $request['key']], [
                 'value' => json_encode([
                     'activation_status' => $request['status'] ?? 0,
-                    'username' => $request['username'],
-                    'purchase_key' => $request['purchase_key'],
+                    'username' => $request['username'] ?? '',
+                    'purchase_key' => $request['purchase_key'] ?? '',
                 ])
             ]);
             Toastr::success(translate('activated_successfully'));
